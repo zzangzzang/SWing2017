@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+    android:background="@drawable/mainback2"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="싱크로율"
+                android:textColor="#ffffff"
+                android:layout_marginTop="50dp"/>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart1"
+                android:layout_width="500dp"
+                android:layout_height="200dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="연습 횟수"
+                android:textColor="#ffffff"/>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart2"
+                android:layout_width="500dp"
+                android:layout_height="200dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="#40ffffff"
+            android:paddingLeft="30dp"
+            android:layout_weight="2">
+
+            <ExpandableListView
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/listView">
+            </ExpandableListView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/left_arrow"
+            android:background="@drawable/round_button"
+            android:id="@+id/left_arrow"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:text="4/24 ~ 4/30"
+            android:textColor="@color/white"/>
+
+        <ImageButton
+            android:layout_marginTop="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/right_arrow"
+            android:background="@drawable/round_button"
+            android:id="@+id/right_button"
+            android:scaleType="fitXY" />
+
+    </LinearLayout>
+</FrameLayout>
