@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-
     }
     public void init(){
 
@@ -30,11 +29,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         btn4 = (Button)findViewById(R.id.btexit);
         btn4.setOnClickListener(this);
 
-//        Typeface typeface = Typeface.createFromAsset(getAssets(), "KozGoPro-Light");
-//        btn1.setTypeface(typeface);
-//        btn2.setTypeface(typeface);
-//        btn3.setTypeface(typeface);
-//        btn4.setTypeface(typeface);
+
 
     }
     @Override

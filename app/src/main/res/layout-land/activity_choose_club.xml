@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mainback"
+    android:orientation="vertical"
+    android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="140sp"
+        android:text="골프 클럽 선택"
+        android:textColor="#ffffff"
+        android:textSize="50sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:padding="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/stroke1"
+            android:onClick="club1Click"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginRight="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="1번"
+                android:textColor="#ffffff"
+                android:textSize="50sp" />
+
+            <ImageView
+                android:layout_width="70sp"
+                android:layout_height="70sp"
+                android:src="@drawable/club1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="20sp"
+            android:background="@drawable/stroke1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="club7Click"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginRight="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="7번"
+                android:textColor="#ffffff"
+                android:textSize="50sp" />
+
+            <ImageView
+                android:layout_width="70sp"
+                android:layout_height="70sp"
+                android:src="@drawable/club2" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>
