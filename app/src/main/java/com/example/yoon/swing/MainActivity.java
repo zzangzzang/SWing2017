@@ -38,8 +38,9 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
         switch (v.getId()){
             case R.id.btplay:
-                intent = new Intent(this,PlayActivity.class);
+                intent = new Intent(this,ChooseClubActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.btrepeat:
                 intent = new Intent(this,RepeatActivity.class);
