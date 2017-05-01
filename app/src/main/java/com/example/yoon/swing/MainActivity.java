@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-
     }
     public void init(){
 
