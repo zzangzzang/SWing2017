@@ -12,12 +12,14 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
     }
+
     public void init(){
 
         btn1 = (Button)findViewById(R.id.btplay);
@@ -29,8 +31,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         btn4 = (Button)findViewById(R.id.btexit);
         btn4.setOnClickListener(this);
 
-
-
+        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+        dbHandler.table1_addData("T20170320112125", "0", "20170320", "180105","01" );
     }
     @Override
     public void onClick(View v) {

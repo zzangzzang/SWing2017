@@ -1,5 +1,6 @@
 package com.example.yoon.swing;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -9,6 +10,13 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class MyDBHandler extends SQLiteOpenHelper {
+
+    public static final String TBL_TRANNING_HEADER = "TBL_TRANNING_HEADER";
+    public static final String COLUMN_TRAINING_SEQ = "TRAINING_SEQ";
+    public static final String COLUMN_TRAINING_FLG = "TRAINING_FLG";
+    public static final String COLUMN_TRAINING_YMD = "TRAINING_YMD";
+    public static final String COLUMN_TRAINING_TIME = "TRAINING_TIME";
+    public static final String COLUMN_CLUB_NUMBER = "CLUB_NUMBER";
 
     public MyDBHandler(Context context, String name,
                        SQLiteDatabase.CursorFactory factory, int version) {
@@ -70,6 +78,21 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE6);
         db.execSQL(CREATE_TABLE7);
 
+    }
+
+    public void table1_addData(String seq, String flg, String ymd, String time, String number){
+        ContentValues values=new ContentValues();
+        values.put(COLUMN_TRAINING_SEQ, seq);
+        values.put(COLUMN_TRAINING_FLG, flg);
+        values.put(COLUMN_TRAINING_YMD, ymd);
+        values.put(COLUMN_TRAINING_TIME, time);
+        values.put(COLUMN_CLUB_NUMBER, number);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert(TBL_TRANNING_HEADER, null, values);
+        db.close();
+    }
+    public void table2_addData(String seq, String flg, String ymd, String time, String number){
 
     }
     @Override
