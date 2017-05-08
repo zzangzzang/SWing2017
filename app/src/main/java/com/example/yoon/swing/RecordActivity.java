@@ -51,7 +51,7 @@ public class RecordActivity extends DemoBase {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity);
+        setContentView(R.layout.activity_record);
 
         mChart = (BarChart) findViewById(R.id.chart1);
         mOnValueSelectedRectF = new RectF();
