@@ -89,6 +89,7 @@
             android:layout_height="wrap_content"
             android:textSize="25sp"
             android:text="4/24 ~ 4/30"
+            android:id="@+id/date_range"
             android:textColor="@color/white"/>
 
         <ImageButton
