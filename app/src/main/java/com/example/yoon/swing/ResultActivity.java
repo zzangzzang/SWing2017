@@ -1,12 +1,16 @@
 package com.example.yoon.swing;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import java.util.ArrayList;
 
@@ -14,6 +18,8 @@ import im.dacer.androidcharts.LineView;
 
 public class ResultActivity extends AppCompatActivity {
 
+    public static final int LOAD_VIDEO = 1;
+    VideoView videoView;
     LineView lineView1, lineView2;
     boolean show1 = false, show2 = false;
     ArrayList<ArrayList<Integer>> dataLists1 ,dataLists2;
@@ -26,6 +32,7 @@ public class ResultActivity extends AppCompatActivity {
         SpannableString syncText = new SpannableString("63%");
         syncText.setSpan(new RelativeSizeSpan(0.6f),2,3,0);
         textView.setText(syncText);
+        videoView = (VideoView)findViewById(R.id.videoView);
         lineView1 = (LineView)findViewById(R.id.line_view);
         lineView1.setDrawDotLine(true); //optional
         lineView1.setShowPopup(LineView.SHOW_POPUPS_NONE); //optional
@@ -65,7 +72,35 @@ public class ResultActivity extends AppCompatActivity {
         });
         lineView2.setDataList(dataLists2); //or lineView.setFloatDataList(floatDataLists)
 
+        videoView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Intent intent = new Intent();
+                intent.setType("video/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Complete action using"), LOAD_VIDEO) ;
+
+                return false;
+            }
+        });
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != RESULT_OK)
+            return;
+
+        switch (requestCode){
+            case LOAD_VIDEO :
+                Uri mVideoUri = data.getData();
+                videoView.setVideoURI(mVideoUri);
+                videoView.start();
+                break;
+        }
+
+    }
+
     void dataset1(){
 
         ArrayList<String> strList = new ArrayList<>();
