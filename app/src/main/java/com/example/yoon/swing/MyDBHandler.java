@@ -18,6 +18,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_TRAINING_TIME = "TRAINING_TIME";
     public static final String COLUMN_CLUB_NUMBER = "CLUB_NUMBER";
 
+
     public MyDBHandler(Context context, String name,
                        SQLiteDatabase.CursorFactory factory, int version) {
         super(context, "swingDB.db", factory, version);
@@ -30,7 +31,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 +"TRAINING_YMD NVARCHAR(8) NOT NULL, "  //트레이닝 일자(ex:20170320)
                 +"TRAINING_TIME NVARCHAR(6) NOT NULL, " //트레이닝 시간(ex:180105)
                 +"CLUB_NUMBER NCHAR(2) NOT NULL, "      //클럽 종류 ( 골프 채 ) – 공통코드
-                +"primary key(TRAINING_SEQ) ";
+                +"primary key(TRAINING_SEQ)) ";
 
         String CREATE_TABLE2 = "create table if not exists TBL_TRANNING_DETAIL ("
                 +"TRAINING_SEQ NVARCHAR(15) NOT NULL, " //트레이닝 SEQ(T+년월일시분초 ex: T20170320112125)   - key
@@ -38,37 +39,37 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 +"REG_TIME NVARCHAR(20) NOT NULL, "     //밀리세컨드 까지 등록(시작시간, 끝시간 체크)
                 +"RIGHT_WEIGHT INT, "                   //우측 중량
                 +"LEFT_WEIGHT INT, "                    //좌측 중량
-                +"primary key(TRAINING_SEQ, DETAIL_SEQ) ";
+                +"primary key(TRAINING_SEQ, DETAIL_SEQ)) ";
 
         String CREATE_TABLE3 = "create table if not exists TBL_TRAINING_VIDEO_HIST ("
                 +"TRAINING_SEQ NVARCHAR(15) NOT NULL, "
                 +"FILE_PATH NVARCHAR(20) NOT NULL, "
                 +"FILE_NAME NVARCHAR(20) NOT NULL, "
-                +"primary key(TRAINING_SEQ) ";
+                +"primary key(TRAINING_SEQ)) ";
 
         String CREATE_TABLE4 = "create table if not exists TBL_PRO_DATA_HEADER\n ("
                 +"PRO_ID NVARCHAR(6) NOT NULL, "
                 +"PRO_NAME NVARCHAR(20) NOT NULL, "
                 +"CLUB_NUMBER NCHAR(2) NOT NULL, "
-                +"primary key(PRO_ID) ";
+                +"primary key(PRO_ID)) ";
 
         String CREATE_TABLE5 = "create table if not exists TBL_PRO_DATA_DETAIL ("
                 +"PRO_ID NVARCHAR(6) NOT NULL, "
                 +"DETAIL_SEQ NVARCHAR(3) NOT NULL, "
                 +"RIGHT_WEIGHT INT,"
                 +"LEFT_WEIGHT INT,"
-                +"PRIMARY KEY(PRO_ID, DETAIL_SEQ)";
+                +"PRIMARY KEY(PRO_ID, DETAIL_SEQ))";
 
         String CREATE_TABLE6 = "create table if not exists TBL_COMMON_CODE ("
                 +"DIV_CODE NCHAR(2) NOT NULL, "
                 +"TASK_CODE NCHAR(2) NOT NULL, "
-                +"PRIMARY KEY(DIV_CODE, TASK_CODE)";
+                +"PRIMARY KEY(DIV_CODE, TASK_CODE))";
 
         String CREATE_TABLE7 = "create table if not exists TBL_PRO_VIDEO_HIST ("
                 +"PRO_ID NVARCHAR(6) NOT NULL, "
                 +"FILE_PATH NVARCHAR(20) NOT NULL, "
                 +"FILE_NAME NVARCHAR(20) NOT NULL, "
-                +"PRIMARY KEY(PRO_ID)";
+                +"PRIMARY KEY(PRO_ID))";
 
         db.execSQL(CREATE_TABLE1);
         db.execSQL(CREATE_TABLE2);
@@ -81,7 +82,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
     public void table1_addData(String seq, String flg, String ymd, String time, String number){
-        ContentValues values=new ContentValues();
+        ContentValues values = new ContentValues();
         values.put(COLUMN_TRAINING_SEQ, seq);
         values.put(COLUMN_TRAINING_FLG, flg);
         values.put(COLUMN_TRAINING_YMD, ymd);
@@ -92,9 +93,11 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.insert(TBL_TRANNING_HEADER, null, values);
         db.close();
     }
+
     public void table2_addData(String seq, String flg, String ymd, String time, String number){
 
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int
             newVersion) {

@@ -102,7 +102,6 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     void dataset1(){
-
         ArrayList<String> strList = new ArrayList<>();
         strList.add("1");
         strList.add("2");
@@ -136,7 +135,6 @@ public class ResultActivity extends AppCompatActivity {
         dataLists1.add(intlist2);
     }
     void dataset2() {
-
         ArrayList<String> strList = new ArrayList<>();
         strList.add("1");
         strList.add("2");
