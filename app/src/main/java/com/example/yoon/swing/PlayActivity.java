@@ -1,13 +1,19 @@
 package com.example.yoon.swing;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 public class PlayActivity extends AppCompatActivity {
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,15 +24,52 @@ public class PlayActivity extends AppCompatActivity {
 
         tvClub = (TextView)findViewById(R.id.tv1);
 
-        tvClub.setText("< "+String.valueOf(myClub)+"번 클럽으로 연습중입니다 >");
+        tvClub.setText("< "+String.valueOf(myClub)+"번 클럽으로 연습 중입니다 >");
+        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 
+            requestPermissions(new String[]{Manifest.permission.CAMERA},
+                    1234);
+        }
 
 //        Toast.makeText(this, "play!!",Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1234) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Now user should be able to use camera
+            }
+            else {
+                // Your app will not have this permission. Turn off all functions
+                // that require this permission or it will force close like your
+                // original question
+            }
+        }
     }
 
     public void txtClick(View view) {
         Intent intent = new Intent(this,ResultActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 1234){
+            Intent intent = new Intent(this,ResultActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    public void videoClick(View view) {
+        Intent i = new Intent("android.media.action.VIDEO_CAPTURE");
+        String url = "/sdcard/Download/exam/" + String.valueOf(System.currentTimeMillis());
+        i.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, url);
+        i.putExtra(android.provider.MediaStore.EXTRA_VIDEO_QUALITY, 0);
+        i.putExtra("android.intent.extra.durationLimit", 60);
+        startActivityForResult(i, 1234);
     }
 }
