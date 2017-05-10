@@ -19,6 +19,7 @@ public class ChooseClubActivity extends AppCompatActivity {
         Intent intent = new Intent(this,PlayActivity.class);
         intent.putExtra("CLUB", 1);
         startActivity(intent);
+        finish();
     }
 
     public void club7Click(View view) {
@@ -26,5 +27,6 @@ public class ChooseClubActivity extends AppCompatActivity {
         Intent intent = new Intent(this,PlayActivity.class);
         intent.putExtra("CLUB",7);
         startActivity(intent);
+        finish();
     }
 }

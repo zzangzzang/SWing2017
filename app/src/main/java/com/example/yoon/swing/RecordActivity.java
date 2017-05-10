@@ -1,14 +1,21 @@
 package com.example.yoon.swing;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yoon.swing.custom.XYMarkerView;
@@ -34,7 +41,10 @@ import com.example.yoon.swing.custom.MyAxisValueFormatter;
 import com.example.yoon.swing.custom.DemoBase;
 import com.github.mikephil.charting.utils.MPPointF;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,6 +52,10 @@ public class RecordActivity extends DemoBase {
     protected BarChart mChart;
     protected RectF mOnValueSelectedRectF;
     protected ExpandableListView listView;
+    static TextView daterange;
+    static Calendar cal;
+    ImageButton leftarrow;
+    ImageButton rightarrow;
     ExpandableListAdapter listAdapter;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
@@ -52,6 +66,10 @@ public class RecordActivity extends DemoBase {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_record);
+        daterange = (TextView)findViewById(R.id.date_range);
+        cal = Calendar.getInstance();
+        leftarrow = (ImageButton)findViewById(R.id.left_arrow);
+        rightarrow = (ImageButton)findViewById(R.id.right_button);
 
         mChart = (BarChart) findViewById(R.id.chart1);
         mOnValueSelectedRectF = new RectF();
@@ -141,11 +159,126 @@ public class RecordActivity extends DemoBase {
 
         setData(6, 100);
 
+        getCurrentWeek(cal);
+
         // mChart.setDrawLegend(false);
         listView = (ExpandableListView) findViewById(R.id.listView);
         prepareListData();
         listAdapter = new com.example.yoon.swing.ExpandableListAdapter(this, listDataHeader, listDataChild);
         listView.setAdapter(listAdapter);
+
+        listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+                cal.add(Calendar.DAY_OF_YEAR, -6 + i);
+                String strDateFormat = "yyyyMMdd";
+                SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+                String ymd = sdf.format(cal.getTime());
+                cal.add(Calendar.DAY_OF_YEAR, 6 - i);
+                Intent intent = new Intent(RecordActivity.this, ResultActivity.class);
+                intent.putExtra("ymd", ymd);
+                intent.putExtra("seq", i1);
+                Toast.makeText(RecordActivity.this, ymd + ", " + i1, Toast.LENGTH_SHORT).show();
+
+                startActivity(intent);
+                return false;
+            }
+        });
+        leftarrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getLastWeek(cal);
+                prepareListData();
+                listAdapter = new com.example.yoon.swing.ExpandableListAdapter(RecordActivity.this, listDataHeader, listDataChild);
+                listView.setAdapter(listAdapter);
+            }
+        });
+        rightarrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getNextWeek(cal);
+                prepareListData();
+                listAdapter = new com.example.yoon.swing.ExpandableListAdapter(RecordActivity.this, listDataHeader, listDataChild);
+                listView.setAdapter(listAdapter);
+            }
+        });
+
+    }
+
+    public static String getLastWeek(Calendar mCalendar) {
+        // Monday
+        mCalendar.add(Calendar.DAY_OF_YEAR, -13);
+        Date mDateMonday = mCalendar.getTime();
+
+        // Sunday
+        mCalendar.add(Calendar.DAY_OF_YEAR, 6);
+        Date mDateSunday = mCalendar.getTime();
+
+        // Date format
+        String strDateFormat = "MM / dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+
+        String MONDAY = sdf.format(mDateMonday);
+        String SUNDAY = sdf.format(mDateSunday);
+
+        String week =  MONDAY + " - " + SUNDAY;
+        daterange.setText(week);
+
+        return MONDAY + " - " + SUNDAY;
+    }
+
+    public static String getCurrentWeek(Calendar mCalendar) {
+        Date date = new Date();
+        mCalendar.setTime(date);
+
+        // 1 = Sunday, 2 = Monday, etc.
+        int day_of_week = mCalendar.get(Calendar.DAY_OF_WEEK);
+
+        int monday_offset;
+        if (day_of_week == 1) {
+            monday_offset = -6;
+        } else
+            monday_offset = (2 - day_of_week); // need to minus back
+        mCalendar.add(Calendar.DAY_OF_YEAR, monday_offset);
+
+        Date mDateMonday = mCalendar.getTime();
+
+        // return 6 the next days of current day (object cal save current day)
+        mCalendar.add(Calendar.DAY_OF_YEAR, 6);
+        Date mDateSunday = mCalendar.getTime();
+
+        //Get format date
+        String strDateFormat = "MM / dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+
+        String MONDAY = sdf.format(mDateMonday);
+        String SUNDAY = sdf.format(mDateSunday);
+
+        String week =  MONDAY + " - " + SUNDAY;
+        daterange.setText(week);
+
+        return MONDAY + " - " + SUNDAY;
+    }
+
+    public static String getNextWeek(Calendar mCalendar) {
+        // Monday
+        mCalendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date mDateMonday = mCalendar.getTime();
+
+        // Sunday
+        mCalendar.add(Calendar.DAY_OF_YEAR, 6);
+        Date Week_Sunday_Date = mCalendar.getTime();
+
+        // Date format
+        String strDateFormat = "MM / dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+
+        String MONDAY = sdf.format(mDateMonday);
+        String SUNDAY = sdf.format(Week_Sunday_Date);
+
+        String week =  MONDAY + " - " + SUNDAY;
+        daterange.setText(week);
+        return MONDAY + " - " + SUNDAY;
     }
 
     private void prepareListData(){
@@ -169,11 +302,40 @@ public class RecordActivity extends DemoBase {
         List<String> SAT = new ArrayList<String>();
         List<String> SUN = new ArrayList<String>();
 
-        MON.add("1회차");
-        MON.add("2회차");
+        cal.add(Calendar.DAY_OF_YEAR, -6);
+        String strDateFormat = "yyyyMMdd";
+        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+        String ymd = sdf.format(cal.getTime());
+        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+        String query = "select * from TBL_TRANNING_HEADER where TRAINING_YMD = \'" + ymd + "\'";
+        SQLiteDatabase db = dbHandler.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        for(int i = 0; i < cursor.getCount(); i++){
+            MON.add(String.valueOf(i + 1) + "회차");
+        }
 
-        SAT.add("1회차");
-        SAT.add("2회차");
+        for(int i = 0; i < 6; i++) {
+            cal.add(Calendar.DAY_OF_YEAR, 1);
+            ymd = sdf.format(cal.getTime());
+            query = "select * from TBL_TRANNING_HEADER where TRAINING_YMD = \'" + ymd + "\'";
+            cursor = db.rawQuery(query, null);
+            cursor.moveToFirst();
+            for (int j = 0; j < cursor.getCount(); j++) {
+                if(i == 0)
+                    TUE.add(String.valueOf(j + 1) + "회차");
+                else if(i == 1)
+                    WED.add(String.valueOf(j + 1) + "회차");
+                else if(i == 2)
+                    THU.add(String.valueOf(j + 1) + "회차");
+                else if(i == 3)
+                    FRI.add(String.valueOf(j + 1) + "회차");
+                else if(i == 4)
+                    SAT.add(String.valueOf(j + 1) + "회차");
+                else if(i == 5)
+                    SUN.add(String.valueOf(j + 1) + "회차");
+            }
+        }
 
         listDataChild.put(listDataHeader.get(0), MON);
         listDataChild.put(listDataHeader.get(1), TUE);
@@ -298,4 +460,6 @@ public class RecordActivity extends DemoBase {
             mChart.setData(data);
         }
     }
+
+
 }
