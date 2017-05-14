@@ -1,6 +1,8 @@
 package com.example.yoon.swing;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,14 +10,34 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener{
 
+
+    String[] perms = {"android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"};
+
+    int permsRequestCode = 200;
+
     Button btn1, btn2, btn3, btn4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-    }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(perms, permsRequestCode);
+        }
+
+    }
+    @Override
+
+    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults){
+        switch(permsRequestCode){
+            case 200:
+                boolean audioAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                boolean cameraAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                break;
+
+        }
+    }
     public void init(){
         btn1 = (Button)findViewById(R.id.btplay);
         btn1.setOnClickListener(this);
