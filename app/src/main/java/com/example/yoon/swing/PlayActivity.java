@@ -4,14 +4,20 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.io.File;
+
 public class PlayActivity extends AppCompatActivity {
+    public static String uri_string = "";
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -64,10 +70,15 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
+    String CAPTURE_TITLE = "test.3gp"; // 여기서 test 부분만 이름지정해서 저장해주어야함 (확장자안써서 그동안 못열었던것...^^) + 퍼미션....
     public void videoClick(View view) {
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), CAPTURE_TITLE);
+
         Intent i = new Intent("android.media.action.VIDEO_CAPTURE");
-        String url = "/sdcard/Download/exam/" + String.valueOf(System.currentTimeMillis());
-        i.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, url);
+        //String url = SwingApplication.getVideoResourcesStorage() + "/tv";// "/sdcard/Download/exam/" + String.valueOf(System.currentTimeMillis());
+        //Log.d("URI : ", url);
+        //uri_string = url;
+        i.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
         i.putExtra(android.provider.MediaStore.EXTRA_VIDEO_QUALITY, 0);
         i.putExtra("android.intent.extra.durationLimit", 60);
         startActivityForResult(i, 1234);

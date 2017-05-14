@@ -4,14 +4,17 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import im.dacer.androidcharts.LineView;
@@ -75,11 +78,12 @@ public class ResultActivity extends AppCompatActivity {
         videoView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                Intent intent = new Intent();
-                intent.setType("video/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Complete action using"), LOAD_VIDEO) ;
 
+                String CAPTURE_TITLE = "test.3gp"; // 여기서 이름만 바꿔주면 특정 동영상 실행가능 넘겨받아야함
+                File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), CAPTURE_TITLE);
+
+                videoView.setVideoPath(file.getPath());
+                 videoView.start();
                 return false;
             }
         });
@@ -94,7 +98,11 @@ public class ResultActivity extends AppCompatActivity {
         switch (requestCode){
             case LOAD_VIDEO :
                 Uri mVideoUri = data.getData();
-                videoView.setVideoURI(mVideoUri);
+                Log.d("URI getPath() : ", mVideoUri.getPath());
+                Log.d("URI toString() : ", mVideoUri.toString());
+                Log.d("URI getEncodedPath() : ", mVideoUri.getEncodedPath());
+                Uri myuri = Uri.parse("/storage/emulated/0/DCIM/Camera/VID_20170510_163826.3gp");
+                videoView.setVideoURI(myuri);
                 videoView.start();
                 break;
         }
