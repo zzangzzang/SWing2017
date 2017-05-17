@@ -58,7 +58,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         String CREATE_TABLE2 = "create table if not exists TBL_TRANNING_DETAIL ("
                 +"TRAINING_SEQ NVARCHAR(15) NOT NULL, " //트레이닝 SEQ(T+년월일시분초 ex: T20170320112125)   - key
-                +"DETAIL_SEQ NCHAR(3) NOT NULL, "       //상세 이력 순번(1부터 순차적으로)
+                +"DETAIL_SEQ NCHAR(3) NOT NULL, "       //상세 이력 순번(1부터 순차적으로) autoincrement
                 +"REG_TIME NVARCHAR(20) NOT NULL, "     //밀리세컨드 까지 등록(시작시간, 끝시간 체크)
                 +"RIGHT_WEIGHT INT, "                   //우측 중량
                 +"LEFT_WEIGHT INT, "                    //좌측 중량
