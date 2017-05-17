@@ -11,13 +11,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yoon.swing.custom.DayAxisValueFormatter;
+import com.example.yoon.swing.custom.DemoBase;
+import com.example.yoon.swing.custom.MyAxisValueFormatter;
 import com.example.yoon.swing.custom.XYMarkerView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -36,9 +38,6 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.example.yoon.swing.custom.DayAxisValueFormatter;
-import com.example.yoon.swing.custom.MyAxisValueFormatter;
-import com.example.yoon.swing.custom.DemoBase;
 import com.github.mikephil.charting.utils.MPPointF;
 
 import java.text.SimpleDateFormat;
@@ -166,6 +165,8 @@ public class RecordActivity extends DemoBase {
         prepareListData();
         listAdapter = new com.example.yoon.swing.ExpandableListAdapter(this, listDataHeader, listDataChild);
         listView.setAdapter(listAdapter);
+        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+        final SQLiteDatabase db = dbHandler.getWritableDatabase();
 
         listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
@@ -174,11 +175,15 @@ public class RecordActivity extends DemoBase {
                 String strDateFormat = "yyyyMMdd";
                 SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
                 String ymd = sdf.format(cal.getTime());
+                String query = "select * from TBL_TRANNING_HEADER where TRAINING_YMD = \'" + ymd + "\'";
+                Cursor cursor = db.rawQuery(query, null);
+                cursor.moveToFirst();
+                for(int m = 0; m < i1; m++)
+                    cursor.moveToNext();
+                String YMD = cursor.getString(0);
                 cal.add(Calendar.DAY_OF_YEAR, 6 - i);
                 Intent intent = new Intent(RecordActivity.this, ResultActivity.class);
-                intent.putExtra("ymd", ymd);
-                intent.putExtra("seq", i1);
-                Toast.makeText(RecordActivity.this, ymd + ", " + i1, Toast.LENGTH_SHORT).show();
+                intent.putExtra("YMD", YMD);
 
                 startActivity(intent);
                 return false;

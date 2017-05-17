@@ -75,7 +75,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 +"PRO_ID NVARCHAR(6) NOT NULL, "
                 +"PRO_NAME NVARCHAR(20) NOT NULL, "
                 +"CLUB_NUMBER NCHAR(2) NOT NULL, "
-                +"primary key(PRO_ID) ";
+                +"primary key(PRO_ID)) ";
 
         String CREATE_TABLE5 = "create table if not exists TBL_PRO_DATA_DETAIL ("
                 +"PRO_ID NVARCHAR(6) NOT NULL, "
