@@ -10,14 +10,19 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import static com.example.yoon.swing.RecordActivity.cal;
 
 public class PlayActivity extends AppCompatActivity {
     public static String uri_string = "";
+    String ymd, CAPTURE_TITLE;
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -25,6 +30,7 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
         TextView tvClub;
+        cal = Calendar.getInstance();
         Intent intent = getIntent();
         int myClub = intent.getIntExtra("CLUB", -1);
 
@@ -37,7 +43,13 @@ public class PlayActivity extends AppCompatActivity {
                     1234);
         }
 
-//        Toast.makeText(this, "play!!",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "play!!",Toast.LENGTH_SHORT).show();
+        String strDateFormat = "yyyyMMddHHmmss";
+        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+        ymd = "T" + sdf.format(cal.getTime());
+        CAPTURE_TITLE = ymd + ".3gp";
+        Toast.makeText(this, CAPTURE_TITLE, Toast.LENGTH_SHORT).show();
+        //Log.d("년월일ㅇ시분초 : ", ymd);
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -56,6 +68,8 @@ public class PlayActivity extends AppCompatActivity {
 
     public void txtClick(View view) {
         Intent intent = new Intent(this,ResultActivity.class);
+        intent.putExtra("YMD", ymd);
+        intent.putExtra("FLAG", 1);
         startActivity(intent);
         finish();
     }
@@ -70,7 +84,7 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
-    String CAPTURE_TITLE = "test.3gp"; // 여기서 test 부분만 이름지정해서 저장해주어야함 (확장자안써서 그동안 못열었던것...^^) + 퍼미션....
+// 여기서 test 부분만 이름지정해서 저장해주어야함 (확장자안써서 그동안 못열었던것...^^) + 퍼미션....
     public void videoClick(View view) {
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), CAPTURE_TITLE);
 

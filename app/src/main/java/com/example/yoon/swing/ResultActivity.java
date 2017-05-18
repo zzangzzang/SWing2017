@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import java.io.File;
@@ -26,6 +27,8 @@ public class ResultActivity extends AppCompatActivity {
     LineView lineView1, lineView2;
     boolean show1 = false, show2 = false;
     ArrayList<ArrayList<Integer>> dataLists1 ,dataLists2;
+    String ymd;
+    //int flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,9 @@ public class ResultActivity extends AppCompatActivity {
         SpannableString syncText = new SpannableString("63%");
         syncText.setSpan(new RelativeSizeSpan(0.6f),2,3,0);
         textView.setText(syncText);
+        Intent intent = getIntent();
+        ymd = intent.getStringExtra("YMD");
+        //flag = intent.getIntExtra("FLAG", -1);
         videoView = (VideoView)findViewById(R.id.videoView);
         lineView1 = (LineView)findViewById(R.id.line_view);
         lineView1.setDrawDotLine(true); //optional
@@ -75,15 +81,24 @@ public class ResultActivity extends AppCompatActivity {
         });
         lineView2.setDataList(dataLists2); //or lineView.setFloatDataList(floatDataLists)
 
+        ////////////////////////////
+        String CAPTURE_TITLE;
+        CAPTURE_TITLE = ymd + ".3gp"; // 여기서 이름만 바꿔주면 특정 동영상 실행가능 넘겨받아야함
+        Toast.makeText(this, ymd, Toast.LENGTH_SHORT).show();
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), CAPTURE_TITLE);
+
+        videoView.setVideoPath(file.getPath());
+        videoView.start();
+        /////////////////////////////
         videoView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
 
-                String CAPTURE_TITLE = "test.3gp"; // 여기서 이름만 바꿔주면 특정 동영상 실행가능 넘겨받아야함
-                File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), CAPTURE_TITLE);
-
-                videoView.setVideoPath(file.getPath());
-                 videoView.start();
+//                String CAPTURE_TITLE = "test.3gp"; // 여기서 이름만 바꿔주면 특정 동영상 실행가능 넘겨받아야함
+//                File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), CAPTURE_TITLE);
+//
+//                videoView.setVideoPath(file.getPath());
+//                 videoView.start();
                 return false;
             }
         });
