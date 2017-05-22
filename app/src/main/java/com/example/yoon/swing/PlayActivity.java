@@ -4,13 +4,16 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,8 +24,9 @@ import java.util.Calendar;
 import static com.example.yoon.swing.RecordActivity.cal;
 
 public class PlayActivity extends AppCompatActivity {
-    public static String uri_string = "";
+    LinearLayout linearLayout;
     String ymd, hms, CAPTURE_TITLE;
+    static Calendar calendar;
     int myClub;
     int FLAG = 0; // 일반연습
 
@@ -31,8 +35,22 @@ public class PlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-        TextView tvClub;
+        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.activity_play);
         cal = Calendar.getInstance();
+        String strDateFormat_hour = "HH";
+        SimpleDateFormat sdf_h = new SimpleDateFormat(strDateFormat_hour);
+        String hour_string = sdf_h.format(cal.getTime());
+        int hour = Integer.parseInt(hour_string);
+        Log.d("HOUR : ", hour_string);
+        if(hour >= 6 && hour < 14){
+            linearLayout.setBackgroundResource(R.drawable.background11);
+        }else if(hour >= 14 && hour < 18){
+            linearLayout.setBackgroundResource(R.drawable.background12);
+        }else{
+            linearLayout.setBackgroundResource(R.drawable.background9);
+        }
+
+        TextView tvClub;
         Intent intent = getIntent();
         myClub = intent.getIntExtra("CLUB", -1);
 

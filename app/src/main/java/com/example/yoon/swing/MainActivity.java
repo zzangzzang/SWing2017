@@ -2,14 +2,27 @@ package com.example.yoon.swing;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import static com.example.yoon.swing.RecordActivity.cal;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener{
-
+    public static String STRING_BACKGROUND = "";
+    TextView textView ;
+    static Calendar cal;
 
     String[] perms = {"android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"};
 
@@ -20,6 +33,23 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        textView = (TextView)findViewById(R.id.textView2);
+        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.activity_main);
+        cal = Calendar.getInstance();
+        String strDateFormat = "HH";
+        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+        String hour_string = sdf.format(cal.getTime());
+        int hour = Integer.parseInt(hour_string);
+        Log.d("HOUR : ", hour_string);
+        if(hour >= 6 && hour < 14){
+            linearLayout.setBackgroundResource(R.drawable.background11);
+            textView.setTextColor(Color.parseColor("#555555"));
+        }else if(hour >= 14 && hour < 18){
+            linearLayout.setBackgroundResource(R.drawable.background12);
+        }else{
+            linearLayout.setBackgroundResource(R.drawable.background9);
+        }
+
         init();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

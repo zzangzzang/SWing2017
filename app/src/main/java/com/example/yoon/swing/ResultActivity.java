@@ -11,14 +11,19 @@ import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import im.dacer.androidcharts.LineView;
+
+import static com.example.yoon.swing.RecordActivity.cal;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -39,6 +44,22 @@ public class ResultActivity extends AppCompatActivity {
         syncText.setSpan(new RelativeSizeSpan(0.6f),2,3,0);
         textView.setText(syncText);
         Intent intent = getIntent();
+
+        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.activity_result);
+        cal = Calendar.getInstance();
+        String strDateFormat_hour = "HH";
+        SimpleDateFormat sdf_h = new SimpleDateFormat(strDateFormat_hour);
+        String hour_string = sdf_h.format(cal.getTime());
+        int hour = Integer.parseInt(hour_string);
+        Log.d("HOUR : ", hour_string);
+        if(hour >= 6 && hour < 14){
+            linearLayout.setBackgroundResource(R.drawable.background11);
+        }else if(hour >= 14 && hour < 18){
+            linearLayout.setBackgroundResource(R.drawable.background12);
+        }else{
+            linearLayout.setBackgroundResource(R.drawable.background9);
+        }
+
         ymd = intent.getStringExtra("YMD");
         //flag = intent.getIntExtra("FLAG", -1);
         videoView = (VideoView)findViewById(R.id.videoView);
