@@ -22,7 +22,9 @@ import static com.example.yoon.swing.RecordActivity.cal;
 
 public class PlayActivity extends AppCompatActivity {
     public static String uri_string = "";
-    String ymd, CAPTURE_TITLE;
+    String ymd, hms, CAPTURE_TITLE;
+    int myClub;
+    int FLAG = 0; // 일반연습
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -32,7 +34,7 @@ public class PlayActivity extends AppCompatActivity {
         TextView tvClub;
         cal = Calendar.getInstance();
         Intent intent = getIntent();
-        int myClub = intent.getIntExtra("CLUB", -1);
+        myClub = intent.getIntExtra("CLUB", -1);
 
         tvClub = (TextView)findViewById(R.id.tv1);
 
@@ -44,10 +46,13 @@ public class PlayActivity extends AppCompatActivity {
         }
 
         Toast.makeText(this, "play!!",Toast.LENGTH_SHORT).show();
-        String strDateFormat = "yyyyMMddHHmmss";
+        String strDateFormat = "yyyyMMdd";
         SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
-        ymd = "T" + sdf.format(cal.getTime());
-        CAPTURE_TITLE = ymd + ".3gp";
+        String strDateFormat2 = "HHmmss";
+        SimpleDateFormat sdf2 = new SimpleDateFormat(strDateFormat2);
+        ymd = sdf.format(cal.getTime());
+        hms = sdf2.format(cal.getTime());
+        CAPTURE_TITLE = "T" +  ymd + hms + ".3gp";
         Toast.makeText(this, CAPTURE_TITLE, Toast.LENGTH_SHORT).show();
         //Log.d("년월일ㅇ시분초 : ", ymd);
     }
@@ -67,8 +72,13 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     public void txtClick(View view) {
+        MyDBHandler myDBHandler = new MyDBHandler(this, null, null, 1);
+        String title = "T" +  ymd + hms;
+        myDBHandler.table1_addData(title, Integer.toString(FLAG), ymd, hms, Integer.toString(myClub)); // 헤더
+        // 상세 넣어야함
+        myDBHandler.table3_addData(title, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString(), CAPTURE_TITLE); // 동영상
         Intent intent = new Intent(this,ResultActivity.class);
-        intent.putExtra("YMD", ymd);
+        intent.putExtra("YMD", "T" + ymd + hms);
         intent.putExtra("FLAG", 1);
         startActivity(intent);
         finish();

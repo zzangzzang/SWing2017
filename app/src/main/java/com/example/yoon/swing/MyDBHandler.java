@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by yoon on 2017-05-08.
@@ -69,8 +70,6 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 +"FILE_NAME NVARCHAR(20) NOT NULL, "
                 +"primary key(TRAINING_SEQ)) ";
 
-
-
         String CREATE_TABLE4 = "create table if not exists TBL_PRO_DATA_HEADER ("
                 +"PRO_ID NVARCHAR(6) NOT NULL, "
                 +"PRO_NAME NVARCHAR(20) NOT NULL, "
@@ -102,7 +101,6 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE5);
         db.execSQL(CREATE_TABLE6);
         db.execSQL(CREATE_TABLE7);
-
     }
 
     public void table1_addData(String seq, String flg, String ymd, String time, String number){
@@ -112,7 +110,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_TRAINING_YMD, ymd);
         values.put(COLUMN_TRAINING_TIME, time);
         values.put(COLUMN_CLUB_NUMBER, number);
-
+        Log.d("ADD : " , seq);
+        Log.d("ADD YMD : " , ymd);
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TBL_TRANNING_HEADER, null, values);
         db.close();

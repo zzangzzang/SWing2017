@@ -48,14 +48,14 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         btn4 = (Button)findViewById(R.id.btexit);
         btn4.setOnClickListener(this);
 
-        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
-        dbHandler.table1_addData("T20170320112125", "0", "20170320", "180105", "01");
-        dbHandler.table1_addData("T20170320112325", "0", "20170508", "180105", "01");
-        dbHandler.table1_addData("T20170320112123", "0", "20170508", "180105", "01");
-        dbHandler.table1_addData("T20170320112127", "0", "20170508", "180105", "01");
-        dbHandler.table1_addData("T20170320112235", "0", "20170510", "180105", "01");
-        dbHandler.table1_addData("T20170320112225", "0", "20170510", "180105", "01");
-        dbHandler.table1_addData("T20170320112145", "0", "20170512", "180105", "01");
+//        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+//        dbHandler.table1_addData("T20170320112125", "0", "20170320", "180105", "01");
+//        dbHandler.table1_addData("T20170320112325", "0", "20170508", "180105", "01");
+//        dbHandler.table1_addData("T20170320112123", "0", "20170508", "180105", "01");
+//        dbHandler.table1_addData("T20170320112127", "0", "20170508", "180105", "01");
+//        dbHandler.table1_addData("T20170320112235", "0", "20170510", "180105", "01");
+//        dbHandler.table1_addData("T20170320112225", "0", "20170510", "180105", "01");
+//        dbHandler.table1_addData("T20170320112145", "0", "20170512", "180105", "01");
     }
     @Override
     public void onClick(View v) {
