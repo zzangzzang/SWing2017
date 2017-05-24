@@ -168,6 +168,8 @@ public class RecordActivity extends DemoBase {
         xaxis.setLabelCount(6);
         xAxis.setValueFormatter(xAxisFormatter);
         xaxis.setValueFormatter(xAxisFormat);
+        xAxis.setTextColor(Color.parseColor("#ffffff"));
+        xaxis.setTextColor(Color.parseColor("#ffffff"));
 
         IAxisValueFormatter custom = new MyAxisValueFormatter();
 
@@ -290,11 +292,11 @@ public class RecordActivity extends DemoBase {
         int hour = Integer.parseInt(hour_string);
         Log.d("HOUR : ", hour_string);
         if(hour >= 6 && hour < 14 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 1){
-            frameLayout.setBackgroundResource(R.drawable.mainback);
+            frameLayout.setBackgroundResource(R.drawable.mainback2);
         }else if(hour >= 14 && hour < 18 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 2){
-            frameLayout.setBackgroundResource(R.drawable.background12);
+            frameLayout.setBackgroundResource(R.drawable.back22);
         }else if(hour >= 18 && hour <6 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 3){
-            frameLayout.setBackgroundResource(R.drawable.background9);
+            frameLayout.setBackgroundResource(R.drawable.back32);
         }
     }
     public static String getLastWeek(Calendar mCalendar) {
@@ -547,6 +549,7 @@ public class RecordActivity extends DemoBase {
 
             BarData data = new BarData(dataSets);
             data.setValueTextSize(10f);
+            data.setValueTextColor(Color.parseColor("#ffffff"));
             //data.setValueTypeface(mTfLight);
             data.setBarWidth(0.40f);
 
@@ -595,6 +598,7 @@ public class RecordActivity extends DemoBase {
 
             BarData data = new BarData(dataSets);
             data.setValueTextSize(10f);
+            data.setValueTextColor(Color.parseColor("#ffffff"));
             //data.setValueTypeface(mTfLight);
             data.setBarWidth(0.40f);
 

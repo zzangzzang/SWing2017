@@ -69,11 +69,11 @@ public class PlayActivity extends AppCompatActivity {
         int hour = Integer.parseInt(hour_string);
         Log.d("HOUR : ", hour_string);
         if(hour >= 6 && hour < 14 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 1){
-            linearLayout.setBackgroundResource(R.drawable.mainback);
+            linearLayout.setBackgroundResource(R.drawable.mainback3);
         }else if(hour >= 14 && hour < 18 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 2){
-            linearLayout.setBackgroundResource(R.drawable.background12);
+            linearLayout.setBackgroundResource(R.drawable.back22);
         }else if(hour >= 18 && hour <6 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 3){
-            linearLayout.setBackgroundResource(R.drawable.background9);
+            linearLayout.setBackgroundResource(R.drawable.back32);
         }
     }
     @Override

@@ -60,10 +60,10 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
             linearLayout.setBackgroundResource(R.drawable.mainback);
             textView.setTextColor(Color.parseColor("#ffffff"));
         }else if(hour >= 14 && hour < 18 && ThemaType == 0 || ThemaType == 2){
-            linearLayout.setBackgroundResource(R.drawable.background12);
+            linearLayout.setBackgroundResource(R.drawable.back2);
             textView.setTextColor(Color.parseColor("#ffffff"));
         }else if(hour >= 18 && hour <6 && ThemaType == 0 || ThemaType == 3){
-            linearLayout.setBackgroundResource(R.drawable.background9);
+            linearLayout.setBackgroundResource(R.drawable.back3);
             textView.setTextColor(Color.parseColor("#ffffff"));
         }
     }
