@@ -1,12 +1,13 @@
 package com.example.yoon.swing;
 
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -22,6 +23,15 @@ public class ChooseClubActivity extends AppCompatActivity {
         setContentView(R.layout.activity_choose_club);
         linearLayout = (LinearLayout)findViewById(R.id.activity_choose_club);
         SettingBackground();
+
+        TextView tv1 = (TextView)findViewById(R.id.tv1);
+        TextView tv2 = (TextView)findViewById(R.id.tv2);
+        TextView tv3 = (TextView)findViewById(R.id.tv3);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "nanumpen.ttf");
+
+        tv1.setTypeface(typeface);
+        tv2.setTypeface(typeface);
+        tv3.setTypeface(typeface);
 
     }
     public void SettingBackground(){

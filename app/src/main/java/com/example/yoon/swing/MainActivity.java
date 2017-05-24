@@ -4,31 +4,29 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import static com.example.yoon.swing.RecordActivity.cal;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener{
     public static String STRING_BACKGROUND = "";
     public static int ThemaType = 0;
     LinearLayout linearLayout;
-    TextView textView ;
     static Calendar cal;
-
+    TextView textView ;
+    Typeface typeface;
+    private long pressedTime;
     String[] perms = {"android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"};
 
     int permsRequestCode = 200;
@@ -38,9 +36,12 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        typeface = Typeface.createFromAsset(getAssets(), "nanumpen.ttf");
+
         textView = (TextView)findViewById(R.id.textView2);
         linearLayout = (LinearLayout)findViewById(R.id.activity_main);
 
+        textView.setTypeface(typeface);
         SettingBackground();
         init();
 
@@ -81,12 +82,17 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     public void init(){
         btn1 = (Button)findViewById(R.id.btplay);
         btn1.setOnClickListener(this);
+        btn1.setTypeface(typeface);
         btn2 = (Button)findViewById(R.id.btrepeat);
         btn2.setOnClickListener(this);
+        btn2.setTypeface(typeface);
         btn3 = (Button)findViewById(R.id.btrecord);
         btn3.setOnClickListener(this);
+        btn3.setTypeface(typeface);
         btn4 = (Button)findViewById(R.id.btexit);
         btn4.setOnClickListener(this);
+        btn4.setTypeface(typeface);
+
 
 //        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
 //        dbHandler.table1_addData("T20170320112125", "0", "20170320", "180105", "01");
@@ -157,5 +163,23 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
             }
         });
         ab.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if(pressedTime == 0){
+            Toast.makeText(this,"한 번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show();
+            pressedTime = System.currentTimeMillis();
+        }
+        else {
+            int seconds = (int)(System.currentTimeMillis() - pressedTime);
+            if(seconds > 2000){
+                pressedTime = 0;
+            }
+            else{
+                finish();
+            }
+        }
     }
 }
