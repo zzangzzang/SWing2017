@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/mainback"
     android:orientation="vertical"
+    android:id="@+id/activity_choose_club"
     android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
     <TextView

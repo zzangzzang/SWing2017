@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,10 +47,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class RecordActivity extends DemoBase {
     protected BarChart mChart;
     protected RectF mOnValueSelectedRectF;
+    protected BarChart countChart;
     protected ExpandableListView listView;
     static TextView daterange;
     static Calendar cal;
@@ -57,6 +60,7 @@ public class RecordActivity extends DemoBase {
     ImageButton rightarrow;
     ExpandableListAdapter listAdapter;
     List<String> listDataHeader;
+    FrameLayout frameLayout;
     HashMap<String, List<String>> listDataChild;
 
     @Override
@@ -70,7 +74,12 @@ public class RecordActivity extends DemoBase {
         leftarrow = (ImageButton)findViewById(R.id.left_arrow);
         rightarrow = (ImageButton)findViewById(R.id.right_button);
 
+        ///////////////////////////////////여기부터 //////////////////////////////////////
+        frameLayout = (FrameLayout)findViewById(R.id.activity_record);
+        SettingBackground();
+        //////////////////////////////여기까지///////////////////////////////////////////
         mChart = (BarChart) findViewById(R.id.chart1);
+        countChart = (BarChart) findViewById(R.id.chart2);
         mOnValueSelectedRectF = new RectF();
         mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -97,74 +106,135 @@ public class RecordActivity extends DemoBase {
 
             }
         });
+        countChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                if (e == null)
+                    return;
 
+                RectF bounds = mOnValueSelectedRectF;
+                mChart.getBarBounds((BarEntry) e, bounds);
+                MPPointF position = mChart.getPosition(e, YAxis.AxisDependency.LEFT);
+
+                Log.i("bounds", bounds.toString());
+                Log.i("position", position.toString());
+
+                Log.i("x-index",
+                        "low: " + mChart.getLowestVisibleX() + ", high: "
+                                + mChart.getHighestVisibleX());
+
+                MPPointF.recycleInstance(position);
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
         mChart.setDrawBarShadow(false);
+        countChart.setDrawBarShadow(false);
         mChart.setDrawValueAboveBar(true);
+        countChart.setDrawBarShadow(false);
 
         mChart.getDescription().setEnabled(false);
+        countChart.getDescription().setEnabled(false);
 
         // if more than 60 entries are displayed in the chart, no values will be
         // drawn
         mChart.setMaxVisibleValueCount(60);
+        countChart.setMaxVisibleValueCount(60);
 
         // scaling can now only be done on x- and y-axis separately
         mChart.setPinchZoom(false);
+        countChart.setPinchZoom(false);
 
         mChart.setDrawGridBackground(false);
+        countChart.setDrawGridBackground(false);
         // mChart.setDrawYLabels(false);
 
         IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(mChart);
+        IAxisValueFormatter xAxisFormat = new DayAxisValueFormatter(countChart);
 
         XAxis xAxis = mChart.getXAxis();
+        XAxis xaxis = countChart.getXAxis();
         xAxis.setPosition(XAxisPosition.BOTTOM);
+        xaxis.setPosition(XAxisPosition.BOTTOM);
         //xAxis.setTypeface(mTfLight);
         xAxis.setDrawGridLines(false);
+        xaxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // only intervals of 1 day
+        xaxis.setGranularity(1f);
         xAxis.setLabelCount(6);
+        xaxis.setLabelCount(6);
         xAxis.setValueFormatter(xAxisFormatter);
+        xaxis.setValueFormatter(xAxisFormat);
+        xAxis.setTextColor(Color.parseColor("#ffffff"));
+        xaxis.setTextColor(Color.parseColor("#ffffff"));
 
         IAxisValueFormatter custom = new MyAxisValueFormatter();
 
         YAxis leftAxis = mChart.getAxisLeft();
+        YAxis leftaxis = countChart.getAxisLeft();
         //leftAxis.setTypeface(mTfLight);
         //leftAxis.setLabelCount(7, false);
         //leftAxis.setValueFormatter(custom);
         leftAxis.setValueFormatter(new LargeValueFormatter());
+        leftaxis.setValueFormatter(new LargeValueFormatter());
         leftAxis.setDrawGridLines(false);
+        leftaxis.setDrawGridLines(false);
         leftAxis.setPosition(YAxisLabelPosition.OUTSIDE_CHART);
+        leftaxis.setPosition(YAxisLabelPosition.OUTSIDE_CHART);
         leftAxis.setSpaceTop(35f);
+        leftaxis.setSpaceTop(35f);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+        leftaxis.setAxisMinimum(0f);
 
         mChart.getAxisLeft().setEnabled(false);
+        countChart.getAxisLeft().setEnabled(false);
         mChart.getAxisRight().setEnabled(false);
+        countChart.getAxisRight().setEnabled(false);
 
         Legend l = mChart.getLegend();
+        Legend ll = countChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        ll.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        ll.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        ll.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         l.setDrawInside(false);
+        ll.setDrawInside(false);
         l.setForm(LegendForm.SQUARE);
+        ll.setForm(LegendForm.SQUARE);
         l.setFormSize(9f);
+        ll.setFormSize(9f);
         l.setTextSize(11f);
+        ll.setTextSize(11f);
         l.setXEntrySpace(4f);
+        ll.setXEntrySpace(4f);
         // l.setExtra(ColorTemplate.VORDIPLOM_COLORS, new String[] { "abc",
         // "def", "ghj", "ikl", "mno" });
         // l.setCustom(ColorTemplate.VORDIPLOM_COLORS, new String[] { "abc",
         // "def", "ghj", "ikl", "mno" });
 
         XYMarkerView mv = new XYMarkerView(this, xAxisFormatter);
+        XYMarkerView xymv = new XYMarkerView(this, xAxisFormat);
         mv.setChartView(mChart); // For bounds control
+        xymv.setChartView(countChart);
         mChart.setMarker(mv); // Set the marker to the chart
-
-        setData(6, 100);
-
-        getCurrentWeek(cal);
+        countChart.setMarker(xymv);
 
         // mChart.setDrawLegend(false);
         listView = (ExpandableListView) findViewById(R.id.listView);
         prepareListData();
         listAdapter = new com.example.yoon.swing.ExpandableListAdapter(this, listDataHeader, listDataChild);
         listView.setAdapter(listAdapter);
+
+        setData(6, 100);
+        setData2(6, 10);
+
+        getCurrentWeek(cal);
+
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
         final SQLiteDatabase db = dbHandler.getWritableDatabase();
 
@@ -194,6 +264,8 @@ public class RecordActivity extends DemoBase {
             public void onClick(View view) {
                 getLastWeek(cal);
                 prepareListData();
+                setData(6, 100);
+                setData2(6, 10);
                 listAdapter = new com.example.yoon.swing.ExpandableListAdapter(RecordActivity.this, listDataHeader, listDataChild);
                 listView.setAdapter(listAdapter);
             }
@@ -203,6 +275,8 @@ public class RecordActivity extends DemoBase {
             public void onClick(View view) {
                 getNextWeek(cal);
                 prepareListData();
+                setData(6, 100);
+                setData2(6, 10);
                 listAdapter = new com.example.yoon.swing.ExpandableListAdapter(RecordActivity.this, listDataHeader, listDataChild);
                 listView.setAdapter(listAdapter);
             }
@@ -210,6 +284,21 @@ public class RecordActivity extends DemoBase {
 
     }
 
+    public void SettingBackground(){
+        cal = Calendar.getInstance();
+        String strDateFormat = "HH";
+        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+        String hour_string = sdf.format(cal.getTime());
+        int hour = Integer.parseInt(hour_string);
+        Log.d("HOUR : ", hour_string);
+        if(hour >= 6 && hour < 14 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 1){
+            frameLayout.setBackgroundResource(R.drawable.mainback2);
+        }else if(hour >= 14 && hour < 18 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 2){
+            frameLayout.setBackgroundResource(R.drawable.back22);
+        }else if(hour >= 18 && hour <6 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 3){
+            frameLayout.setBackgroundResource(R.drawable.back32);
+        }
+    }
     public static String getLastWeek(Calendar mCalendar) {
         // Monday
         mCalendar.add(Calendar.DAY_OF_YEAR, -13);
@@ -429,7 +518,7 @@ public class RecordActivity extends DemoBase {
         return true;
     }
 
-    private void setData(int count, float range) {
+    public void setData(int count, float range) {
 
         float start = 1f;
 
@@ -450,6 +539,7 @@ public class RecordActivity extends DemoBase {
             //set1.setColor(R.color.colorPrimary);
             mChart.getData().notifyDataChanged();
             mChart.notifyDataSetChanged();
+            //mChart.setData(data);
         } else {
             set1 = new BarDataSet(yVals1, "싱크로율");
             set1.setDrawIcons(false);
@@ -459,6 +549,7 @@ public class RecordActivity extends DemoBase {
 
             BarData data = new BarData(dataSets);
             data.setValueTextSize(10f);
+            data.setValueTextColor(Color.parseColor("#ffffff"));
             //data.setValueTypeface(mTfLight);
             data.setBarWidth(0.40f);
 
@@ -466,5 +557,52 @@ public class RecordActivity extends DemoBase {
         }
     }
 
+    public void setData2(int count, float range) {
+        float start = 0f;
 
+        ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
+
+        for (int i = (int) start; i < start + count + 1; i++) {
+            float mult = (range + 1);
+//            float val = (float) (Math.random() * mult);
+            float val = 0;
+            switch(i){
+                case 0: val = (float)listDataChild.get("MON").size(); break;
+                case 1: val = (float)listDataChild.get("TUE").size(); break;
+                case 2: val = (float)listDataChild.get("WED").size(); break;
+                case 3: val = (float)listDataChild.get("THU").size(); break;
+                case 4: val = (float)listDataChild.get("FRI").size(); break;
+                case 5: val = (float)listDataChild.get("SAT").size(); break;
+                case 6: val = (float)listDataChild.get("SUN").size(); break;
+                default:
+            }
+            yVals1.add(new BarEntry(i, val));
+        }
+
+        BarDataSet set1;
+
+        if (countChart.getData() != null &&
+                countChart.getData().getDataSetCount() > 0) {
+            set1 = (BarDataSet) countChart.getData().getDataSetByIndex(0);
+            set1.setValues(yVals1);
+            //set1.setColor(R.color.colorPrimary);
+            countChart.getData().notifyDataChanged();
+            countChart.notifyDataSetChanged();
+            //countChart.setData(data);
+        } else {
+            set1 = new BarDataSet(yVals1, "연습횟수");
+            set1.setDrawIcons(false);
+            set1.setColor(Color.argb(160, 255, 153, 153));
+            ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
+            dataSets.add(set1);
+
+            BarData data = new BarData(dataSets);
+            data.setValueTextSize(10f);
+            data.setValueTextColor(Color.parseColor("#ffffff"));
+            //data.setValueTypeface(mTfLight);
+            data.setBarWidth(0.40f);
+
+            countChart.setData(data);
+        }
+    }
 }
