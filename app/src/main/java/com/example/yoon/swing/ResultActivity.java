@@ -20,6 +20,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Set;
 
 import im.dacer.androidcharts.LineView;
 
@@ -29,6 +30,7 @@ public class ResultActivity extends AppCompatActivity {
 
     public static final int LOAD_VIDEO = 1;
     VideoView videoView;
+    LinearLayout linearLayout;
     LineView lineView1, lineView2;
     boolean show1 = false, show2 = false;
     ArrayList<ArrayList<Integer>> dataLists1 ,dataLists2;
@@ -45,20 +47,8 @@ public class ResultActivity extends AppCompatActivity {
         textView.setText(syncText);
         Intent intent = getIntent();
 
-        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.activity_result);
-        cal = Calendar.getInstance();
-        String strDateFormat_hour = "HH";
-        SimpleDateFormat sdf_h = new SimpleDateFormat(strDateFormat_hour);
-        String hour_string = sdf_h.format(cal.getTime());
-        int hour = Integer.parseInt(hour_string);
-        Log.d("HOUR : ", hour_string);
-        if(hour >= 6 && hour < 14){
-            linearLayout.setBackgroundResource(R.drawable.background11);
-        }else if(hour >= 14 && hour < 18){
-            linearLayout.setBackgroundResource(R.drawable.background12);
-        }else{
-            linearLayout.setBackgroundResource(R.drawable.background9);
-        }
+        linearLayout = (LinearLayout)findViewById(R.id.activity_result);
+        SettingBackground();
 
         ymd = intent.getStringExtra("YMD");
         //flag = intent.getIntExtra("FLAG", -1);
@@ -125,6 +115,21 @@ public class ResultActivity extends AppCompatActivity {
         });
     }
 
+    public void SettingBackground(){
+        cal = Calendar.getInstance();
+        String strDateFormat = "HH";
+        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+        String hour_string = sdf.format(cal.getTime());
+        int hour = Integer.parseInt(hour_string);
+        Log.d("HOUR : ", hour_string);
+        if(hour >= 6 && hour < 14 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 1){
+            linearLayout.setBackgroundResource(R.drawable.mainback);
+        }else if(hour >= 14 && hour < 18 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 2){
+            linearLayout.setBackgroundResource(R.drawable.background12);
+        }else if(hour >= 18 && hour <6 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 3){
+            linearLayout.setBackgroundResource(R.drawable.background9);
+        }
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

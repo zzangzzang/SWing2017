@@ -60,6 +60,7 @@ public class RecordActivity extends DemoBase {
     ImageButton rightarrow;
     ExpandableListAdapter listAdapter;
     List<String> listDataHeader;
+    FrameLayout frameLayout;
     HashMap<String, List<String>> listDataChild;
 
     @Override
@@ -74,20 +75,8 @@ public class RecordActivity extends DemoBase {
         rightarrow = (ImageButton)findViewById(R.id.right_button);
 
         ///////////////////////////////////여기부터 //////////////////////////////////////
-        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.activity_record);
-        cal = Calendar.getInstance();
-        String strDateFormat_hour = "HH";
-        SimpleDateFormat sdf_h = new SimpleDateFormat(strDateFormat_hour);
-        String hour_string = sdf_h.format(cal.getTime());
-        int hour = Integer.parseInt(hour_string);
-        Log.d("HOUR : ", hour_string);
-        if(hour >= 6 && hour < 14){
-            frameLayout.setBackgroundResource(R.drawable.background11);
-        }else if(hour >= 14 && hour < 18){
-            frameLayout.setBackgroundResource(R.drawable.background12);
-        }else{
-            frameLayout.setBackgroundResource(R.drawable.background9);
-        }
+        frameLayout = (FrameLayout)findViewById(R.id.activity_record);
+        SettingBackground();
         //////////////////////////////여기까지///////////////////////////////////////////
         mChart = (BarChart) findViewById(R.id.chart1);
         countChart = (BarChart) findViewById(R.id.chart2);
@@ -142,7 +131,6 @@ public class RecordActivity extends DemoBase {
 
             }
         });
-
         mChart.setDrawBarShadow(false);
         countChart.setDrawBarShadow(false);
         mChart.setDrawValueAboveBar(true);
@@ -294,6 +282,21 @@ public class RecordActivity extends DemoBase {
 
     }
 
+    public void SettingBackground(){
+        cal = Calendar.getInstance();
+        String strDateFormat = "HH";
+        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+        String hour_string = sdf.format(cal.getTime());
+        int hour = Integer.parseInt(hour_string);
+        Log.d("HOUR : ", hour_string);
+        if(hour >= 6 && hour < 14 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 1){
+            frameLayout.setBackgroundResource(R.drawable.mainback);
+        }else if(hour >= 14 && hour < 18 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 2){
+            frameLayout.setBackgroundResource(R.drawable.background12);
+        }else if(hour >= 18 && hour <6 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 3){
+            frameLayout.setBackgroundResource(R.drawable.background9);
+        }
+    }
     public static String getLastWeek(Calendar mCalendar) {
         // Monday
         mCalendar.add(Calendar.DAY_OF_YEAR, -13);

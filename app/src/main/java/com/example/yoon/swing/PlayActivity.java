@@ -26,7 +26,6 @@ import static com.example.yoon.swing.RecordActivity.cal;
 public class PlayActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     String ymd, hms, CAPTURE_TITLE;
-    static Calendar calendar;
     int myClub;
     int FLAG = 0; // 일반연습
 
@@ -35,20 +34,8 @@ public class PlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.activity_play);
-        cal = Calendar.getInstance();
-        String strDateFormat_hour = "HH";
-        SimpleDateFormat sdf_h = new SimpleDateFormat(strDateFormat_hour);
-        String hour_string = sdf_h.format(cal.getTime());
-        int hour = Integer.parseInt(hour_string);
-        Log.d("HOUR : ", hour_string);
-        if(hour >= 6 && hour < 14){
-            linearLayout.setBackgroundResource(R.drawable.background11);
-        }else if(hour >= 14 && hour < 18){
-            linearLayout.setBackgroundResource(R.drawable.background12);
-        }else{
-            linearLayout.setBackgroundResource(R.drawable.background9);
-        }
+        linearLayout = (LinearLayout)findViewById(R.id.activity_play);
+        SettingBackground();
 
         TextView tvClub;
         Intent intent = getIntent();
@@ -73,6 +60,21 @@ public class PlayActivity extends AppCompatActivity {
         CAPTURE_TITLE = "T" +  ymd + hms + ".3gp";
         Toast.makeText(this, CAPTURE_TITLE, Toast.LENGTH_SHORT).show();
         //Log.d("년월일ㅇ시분초 : ", ymd);
+    }
+    public void SettingBackground(){
+        cal = Calendar.getInstance();
+        String strDateFormat = "HH";
+        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+        String hour_string = sdf.format(cal.getTime());
+        int hour = Integer.parseInt(hour_string);
+        Log.d("HOUR : ", hour_string);
+        if(hour >= 6 && hour < 14 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 1){
+            linearLayout.setBackgroundResource(R.drawable.mainback);
+        }else if(hour >= 14 && hour < 18 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 2){
+            linearLayout.setBackgroundResource(R.drawable.background12);
+        }else if(hour >= 18 && hour <6 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 3){
+            linearLayout.setBackgroundResource(R.drawable.background9);
+        }
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
