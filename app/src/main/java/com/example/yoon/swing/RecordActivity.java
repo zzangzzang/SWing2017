@@ -47,7 +47,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class RecordActivity extends DemoBase {
     protected BarChart mChart;
@@ -539,6 +538,7 @@ public class RecordActivity extends DemoBase {
             //set1.setColor(R.color.colorPrimary);
             mChart.getData().notifyDataChanged();
             mChart.notifyDataSetChanged();
+            mChart.invalidate();
             //mChart.setData(data);
         } else {
             set1 = new BarDataSet(yVals1, "싱크로율");
@@ -588,6 +588,7 @@ public class RecordActivity extends DemoBase {
             //set1.setColor(R.color.colorPrimary);
             countChart.getData().notifyDataChanged();
             countChart.notifyDataSetChanged();
+            countChart.invalidate();
             //countChart.setData(data);
         } else {
             set1 = new BarDataSet(yVals1, "연습횟수");
