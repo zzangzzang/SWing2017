@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         } else if (hour >= 14 && hour < 18 && ThemaType == 0 || ThemaType == 2) {
             linearLayout.setBackgroundResource(R.drawable.back2);
             textView.setTextColor(Color.parseColor("#ffffff"));
-        } else if (hour >= 18 && hour < 6 && ThemaType == 0 || ThemaType == 3) {
+        } else if ( (hour >= 18 || hour < 6 && ThemaType == 0) || ThemaType == 3) {
             linearLayout.setBackgroundResource(R.drawable.back3);
             textView.setTextColor(Color.parseColor("#ffffff"));
         }
@@ -169,6 +169,24 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         }
         scan.close();
 
+        // 반복데이터
+        dbHandler.table1_addData("T20170613163502", "1", "20170613", "163502", "1");
+        TRAINING_SEQ = "";
+        DETAIL_SEQ = "";
+        REG_TIME = "";
+        RIGHT_WEIGHT = "";
+        LEFT_WEIGHT = "";
+        scan = new Scanner(
+                getResources().openRawResource(R.raw.repeatdata));
+        while (scan.hasNextLine()) {
+            TRAINING_SEQ = scan.nextLine();
+            DETAIL_SEQ = scan.nextLine();
+            REG_TIME = scan.nextLine();
+            RIGHT_WEIGHT = scan.nextLine();
+            LEFT_WEIGHT = scan.nextLine();
+            dbHandler.table2_addData(TRAINING_SEQ, DETAIL_SEQ, REG_TIME, RIGHT_WEIGHT, LEFT_WEIGHT);
+        }
+        scan.close();
         dbHandler.table4_addData("p00001", "윤지수", "0");
         String PRO_ID = "";
         DETAIL_SEQ = "";
