@@ -99,7 +99,7 @@ public class PlayActivity extends AppCompatActivity {
         myDBHandler.table3_addData(title, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString(), CAPTURE_TITLE); // 동영상
         Intent intent = new Intent(this,ResultActivity.class);
         intent.putExtra("YMD", "T" + ymd + hms);
-        intent.putExtra("FLAG", 1);
+        intent.putExtra("FLAG", 0);
         startActivity(intent);
         finish();
     }
