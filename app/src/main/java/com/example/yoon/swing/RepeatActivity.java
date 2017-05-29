@@ -11,6 +11,5 @@ public class RepeatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repeat);
         Toast.makeText(this, "repeat!!",Toast.LENGTH_SHORT).show();
-
     }
 }

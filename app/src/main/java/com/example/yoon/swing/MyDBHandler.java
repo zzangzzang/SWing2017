@@ -54,7 +54,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 +"TRAINING_YMD NVARCHAR(8) NOT NULL, "  //트레이닝 일자(ex:20170320)
                 +"TRAINING_TIME NVARCHAR(6) NOT NULL, " //트레이닝 시간(ex:180105)
                 +"CLUB_NUMBER NCHAR(2) NOT NULL, "      //클럽 종류 ( 골프 채 ) – 공통코드
-                +"TRAINING_SYNC INT NOT NULL, "         // 싱크로율
+                +"TRAINING_SYNC INT, "         // 싱크로율
                 +"primary key(TRAINING_SEQ)) ";
 
         String CREATE_TABLE2 = "create table if not exists TBL_TRANNING_DETAIL ("
