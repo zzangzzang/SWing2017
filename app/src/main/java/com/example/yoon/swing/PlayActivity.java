@@ -100,6 +100,7 @@ public class PlayActivity extends AppCompatActivity {
         Intent intent = new Intent(this,ResultActivity.class);
         intent.putExtra("YMD", "T" + ymd + hms);
         intent.putExtra("FLAG", 0);
+        intent.putExtra("CLUB", myClub);
         startActivity(intent);
         finish();
     }
