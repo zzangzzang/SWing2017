@@ -135,11 +135,10 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp">
 
-                <view
+                <com.example.yoon.swing.LineView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="5"
-                    class="im.dacer.androidcharts.LineView"
                     android:id="@+id/line_view"
                     android:layout_margin="10dp"/>
 
@@ -162,14 +161,12 @@
                 android:orientation="vertical"
                 android:layout_marginLeft="15dp">
 
-                <view
+                <com.example.yoon.swing.LineView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="5"
-                    class="im.dacer.androidcharts.LineView"
                     android:id="@+id/line_view2"
                     android:layout_margin="10dp"/>
-
 
                 <TextView
                     android:textColor="#ffffff"
@@ -211,40 +208,44 @@
             android:id="@+id/provideoView"/>
 
         <LinearLayout
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
             <TextView
                 android:id="@+id/textleft2"
-                android:layout_marginRight="14dp"
-                android:layout_gravity="center"
-                android:textSize="40dp"
-                android:textColor="#A9B7B7"
-                android:text="50"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="14dp"
+                android:text="50"
+                android:textColor="#A9B7B7"
+                android:textSize="40dp" />
+
             <ImageView
-                android:layout_marginRight="10dp"
-                android:src="@drawable/foot_left"
                 android:layout_width="70dp"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/foot_left" />
+
             <ImageView
-                android:layout_marginRight="10dp"
-                android:src="@drawable/foot_right"
                 android:layout_width="70dp"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/foot_right" />
+
             <TextView
                 android:id="@+id/textright2"
-                android:layout_marginLeft="14dp"
-                android:layout_gravity="center"
-                android:textSize="40dp"
-                android:textColor="#A9B7B7"
-                android:text="50"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="14dp"
+                android:text="50"
+                android:textColor="#A9B7B7"
+                android:textSize="40dp" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

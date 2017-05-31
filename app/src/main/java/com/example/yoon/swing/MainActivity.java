@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         RIGHT_WEIGHT = "";
         LEFT_WEIGHT = "";
         scan = new Scanner(
-                getResources().openRawResource(R.raw.userdetail1));
+                getResources().openRawResource(R.raw.userdetail2));
         while (scan.hasNextLine()) {
             TRAINING_SEQ = scan.nextLine();
             DETAIL_SEQ = scan.nextLine();
