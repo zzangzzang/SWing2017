@@ -17,6 +17,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_TRAINING_FLG = "TRAINING_FLG";
     public static final String COLUMN_TRAINING_YMD = "TRAINING_YMD";
     public static final String COLUMN_TRAINING_TIME = "TRAINING_TIME";
+    public static final String COLUMN_TRAINING_SYNC = "TRAINING_SYNC";
 
     public static final String TBL_TRANNING_DETAIL = "TBL_TRANNING_DETAIL";
     public static final String COLUMN_DETAIL_SEQ = "DETAIL_SEQ";
@@ -104,13 +105,14 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE7);
     }
 
-    public void table1_addData(String seq, String flg, String ymd, String time, String number){
+    public void table1_addData(String seq, String flg, String ymd, String time, String number, int sync){
         ContentValues values=new ContentValues();
         values.put(COLUMN_TRAINING_SEQ, seq);
         values.put(COLUMN_TRAINING_FLG, flg);
         values.put(COLUMN_TRAINING_YMD, ymd);
         values.put(COLUMN_TRAINING_TIME, time);
         values.put(COLUMN_CLUB_NUMBER, number);
+        values.put(COLUMN_TRAINING_SYNC, sync);
         Log.d("ADD : " , seq);
         Log.d("ADD YMD : " , ymd);
         SQLiteDatabase db = this.getWritableDatabase();
