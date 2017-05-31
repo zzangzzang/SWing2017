@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         btn4.setTypeface(typeface);
         dbHandler = new MyDBHandler(this, null, null, 1);
 
-
         readDataFile();
 
     }
@@ -198,7 +197,6 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         while (scan.hasNextLine()) {
             PRO_ID = scan.nextLine();
             DETAIL_SEQ = scan.nextLine();
-            REG_TIME = scan.nextLine();
             RIGHT_WEIGHT = scan.nextLine();
             LEFT_WEIGHT = scan.nextLine();
             dbHandler.table5_addData(PRO_ID, DETAIL_SEQ, RIGHT_WEIGHT, LEFT_WEIGHT);
