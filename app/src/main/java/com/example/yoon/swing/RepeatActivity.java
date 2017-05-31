@@ -1,8 +1,12 @@
 package com.example.yoon.swing;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -24,21 +29,33 @@ public class RepeatActivity extends AppCompatActivity {
     int myClub;
     int FLAG = 1; // 반복연습
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repeat);
         linearLayout = (LinearLayout)findViewById(R.id.activity_play);
         SettingBackground();
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "nanumpen.ttf");
 
-        TextView tvClub;
+        TextView tvClub, textview1, textview2;
         Intent intent = getIntent();
         myClub = intent.getIntExtra("CLUB", -1);
 
         tvClub = (TextView)findViewById(R.id.tv1);
+        textview1 = (TextView)findViewById(R.id.textview);
+        textview2 = (TextView)findViewById(R.id.textview2);
 
-        tvClub.setText("< "+String.valueOf(myClub)+"번 클럽으로 연습 중입니다 >");
+        tvClub.setTypeface(typeface);
+        textview1.setTypeface(typeface);
+        textview2.setTypeface(typeface);
 
+        tvClub.setText("< "+String.valueOf(myClub)+"번 클럽으로 연습합니다 >");
+        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissions(new String[]{Manifest.permission.CAMERA},
+                    1234);
+        }
         Toast.makeText(this, "play!!",Toast.LENGTH_SHORT).show();
         String strDateFormat = "yyyyMMdd";
         SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
@@ -62,7 +79,7 @@ public class RepeatActivity extends AppCompatActivity {
             linearLayout.setBackgroundResource(R.drawable.mainback3);
         }else if(hour >= 14 && hour < 18 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 2){
             linearLayout.setBackgroundResource(R.drawable.back22);
-        }else if(hour >= 18 && hour <6 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 3){
+        }else if((hour >= 18 || hour <6 )&& MainActivity.ThemaType == 0 || MainActivity.ThemaType == 3){
             linearLayout.setBackgroundResource(R.drawable.back32);
         }
     }
@@ -84,7 +101,7 @@ public class RepeatActivity extends AppCompatActivity {
     public void txtClick(View view) {
         MyDBHandler myDBHandler = new MyDBHandler(this, null, null, 1);
         String title = "T" +  ymd + hms;
-        myDBHandler.table1_addData(title, Integer.toString(FLAG), ymd, hms, Integer.toString(myClub)); // 헤더
+        myDBHandler.table1_addData(title, Integer.toString(FLAG), ymd, hms, Integer.toString(myClub), 0); // 헤더
         // 상세 넣어야함
         myDBHandler.table3_addData(title, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString(), CAPTURE_TITLE); // 동영상
         Intent intent = new Intent(this,ResultActivity.class);
@@ -93,5 +110,28 @@ public class RepeatActivity extends AppCompatActivity {
         intent.putExtra("SEQ", 1);
         startActivity(intent);
         finish();
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 1234){
+            Intent intent = new Intent(this,ResultActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    // 여기서 test 부분만 이름지정해서 저장해주어야함 (확장자안써서 그동안 못열었던것...^^) + 퍼미션....
+    public void videoClick(View view) {
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), CAPTURE_TITLE);
+
+        Intent i = new Intent("android.media.action.VIDEO_CAPTURE");
+        //String url = SwingApplication.getVideoResourcesStorage() + "/tv";// "/sdcard/Download/exam/" + String.valueOf(System.currentTimeMillis());
+        //Log.d("URI : ", url);
+        //uri_string = url;
+        i.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+        i.putExtra(android.provider.MediaStore.EXTRA_VIDEO_QUALITY, 0);
+        i.putExtra("android.intent.extra.durationLimit", 60);
+        startActivityForResult(i, 1234);
     }
 }

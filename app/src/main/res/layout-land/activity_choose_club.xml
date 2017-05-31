@@ -8,6 +8,7 @@
     android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
     <TextView
+        android:layout_marginBottom="40dp"
         android:id="@+id/tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +16,7 @@
         android:layout_marginTop="140sp"
         android:text="골프 클럽 선택"
         android:textColor="#ffffff"
-        android:textSize="50sp" />
+        android:textSize="70sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -24,6 +25,8 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:layout_marginRight="25dp"
+            android:id="@+id/layout1"
             android:padding="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,11 +40,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:text="1번"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:textSize="50sp" />
 
-            <ImageButton
-                android:onClick="club1Click"
+            <ImageView
                 android:scaleType="fitXY"
                 android:background="#00ffffff"
                 android:layout_width="70sp"
@@ -50,6 +52,8 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginLeft="25dp"
+            android:id="@+id/layout7"
             android:padding="20sp"
             android:background="@drawable/stroke1"
             android:layout_width="wrap_content"
@@ -64,11 +68,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:text="7번"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:textSize="50sp" />
 
-            <ImageButton
-                android:onClick="club7Click"
+            <ImageView
                 android:scaleType="fitXY"
                 android:background="#00ffffff"
                 android:layout_width="70sp"

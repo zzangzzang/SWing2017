@@ -110,10 +110,12 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         switch (v.getId()) {
             case R.id.btplay:
                 intent = new Intent(this, ChooseClubActivity.class);
+                intent.putExtra("TYPE", 0);
                 startActivity(intent);
                 break;
             case R.id.btrepeat:
-                intent = new Intent(this, RepeatActivity.class);
+                intent = new Intent(this, ChooseClubActivity.class);
+                intent.putExtra("TYPE", 1);
                 startActivity(intent);
                 break;
             case R.id.btrecord:
@@ -130,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     public void readDataFile() {
         Scanner scan = null;
 
-        dbHandler.table1_addData("T20170614163502", "0", "20170614", "163502", "1");
+        dbHandler.table1_addData("T20170614163502", "0", "20170614", "163502", "1", 0);
         String TRAINING_SEQ = "";
         String DETAIL_SEQ = "";
         String REG_TIME = "";
@@ -150,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         }
         scan.close();
 
-        dbHandler.table1_addData("T20170614163037", "0", "20170614", "163037", "1");
+        dbHandler.table1_addData("T20170614163037", "0", "20170614", "163037", "1", 0);
         TRAINING_SEQ = "";
         DETAIL_SEQ = "";
         REG_TIME = "";
@@ -169,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         scan.close();
 
         // 반복데이터
-        dbHandler.table1_addData("T20170613163502", "1", "20170613", "163502", "1");
+        dbHandler.table1_addData("T20170613163502", "1", "20170613", "163502", "1", 0);
         TRAINING_SEQ = "";
         DETAIL_SEQ = "";
         REG_TIME = "";

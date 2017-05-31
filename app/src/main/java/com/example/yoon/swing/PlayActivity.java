@@ -4,7 +4,7 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +21,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static com.example.yoon.swing.R.id.tv1;
 import static com.example.yoon.swing.RecordActivity.cal;
 
 public class PlayActivity extends AppCompatActivity {
@@ -36,14 +37,20 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
         linearLayout = (LinearLayout)findViewById(R.id.activity_play);
         SettingBackground();
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "nanumpen.ttf");
 
-        TextView tvClub;
         Intent intent = getIntent();
         myClub = intent.getIntExtra("CLUB", -1);
+        TextView tvClub;
+        TextView textview1, textview2;
+        tvClub = (TextView)findViewById(tv1);
+        textview1 = (TextView)findViewById(R.id.textview);
+        textview2 = (TextView)findViewById(R.id.textview2);
+        tvClub.setTypeface(typeface);
+        textview1.setTypeface(typeface);
+        textview2.setTypeface(typeface);
 
-        tvClub = (TextView)findViewById(R.id.tv1);
-
-        tvClub.setText("< "+String.valueOf(myClub)+"번 클럽으로 연습 중입니다 >");
+        tvClub.setText("< "+String.valueOf(myClub)+"번 클럽으로 연습합니다 >");
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 
             requestPermissions(new String[]{Manifest.permission.CAMERA},
@@ -59,7 +66,6 @@ public class PlayActivity extends AppCompatActivity {
         hms = sdf2.format(cal.getTime());
         CAPTURE_TITLE = "T" +  ymd + hms + ".3gp";
         Toast.makeText(this, CAPTURE_TITLE, Toast.LENGTH_SHORT).show();
-        //Log.d("년월일ㅇ시분초 : ", ymd);
     }
     public void SettingBackground(){
         cal = Calendar.getInstance();
@@ -72,7 +78,7 @@ public class PlayActivity extends AppCompatActivity {
             linearLayout.setBackgroundResource(R.drawable.mainback3);
         }else if(hour >= 14 && hour < 18 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 2){
             linearLayout.setBackgroundResource(R.drawable.back22);
-        }else if(hour >= 18 && hour <6 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 3){
+        }else if((hour >= 18 || hour <6 )&& MainActivity.ThemaType == 0 || MainActivity.ThemaType == 3){
             linearLayout.setBackgroundResource(R.drawable.back32);
         }
     }
@@ -94,7 +100,7 @@ public class PlayActivity extends AppCompatActivity {
     public void txtClick(View view) {
         MyDBHandler myDBHandler = new MyDBHandler(this, null, null, 1);
         String title = "T" +  ymd + hms;
-        myDBHandler.table1_addData(title, Integer.toString(FLAG), ymd, hms, Integer.toString(myClub)); // 헤더
+        myDBHandler.table1_addData(title, Integer.toString(FLAG), ymd, hms, Integer.toString(myClub), 0); // 헤더
         // 상세 넣어야함
         myDBHandler.table3_addData(title, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString(), CAPTURE_TITLE); // 동영상
         Intent intent = new Intent(this,ResultActivity.class);
@@ -115,7 +121,7 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
-// 여기서 test 부분만 이름지정해서 저장해주어야함 (확장자안써서 그동안 못열었던것...^^) + 퍼미션....
+    // 여기서 test 부분만 이름지정해서 저장해주어야함 (확장자안써서 그동안 못열었던것...^^) + 퍼미션....
     public void videoClick(View view) {
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), CAPTURE_TITLE);
 

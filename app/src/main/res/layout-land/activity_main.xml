@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/mainback"
     android:theme="@style/Theme.AppCompat.Light.NoActionBar"
     tools:context="com.example.yoon.swing.MainActivity">
 
@@ -16,8 +17,8 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:onClick="settingClick"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
             android:background="@drawable/setting"/>
         <TextView
             android:layout_marginTop="30sp"
@@ -34,12 +35,14 @@
     </LinearLayout>
 
     <LinearLayout
+        android:paddingRight="15dp"
         android:gravity="right"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            android:layout_marginBottom="10sp"
+            android:gravity="center"
+            android:layout_marginBottom="7sp"
             android:textColor="#ffffff"
             android:background="@drawable/menu_button"
             android:id="@+id/btplay"
@@ -48,7 +51,8 @@
             android:layout_width="300sp"
             android:layout_height="80sp" />
         <Button
-            android:layout_marginBottom="10sp"
+            android:gravity="center"
+            android:layout_marginBottom="7sp"
             android:textColor="#ffffff"
             android:background="@drawable/menu_button"
             android:id="@+id/btrepeat"
@@ -57,7 +61,8 @@
             android:layout_width="300sp"
             android:layout_height="80sp" />
         <Button
-            android:layout_marginBottom="10sp"
+            android:gravity="center"
+            android:layout_marginBottom="7sp"
             android:textColor="#ffffff"
             android:background="@drawable/menu_button"
             android:id="@+id/btrecord"
@@ -66,6 +71,7 @@
             android:layout_width="300sp"
             android:layout_height="80sp" />
         <Button
+            android:gravity="center"
             android:layout_marginBottom="10sp"
             android:textColor="#ffffff"
             android:background="@drawable/menu_button"
