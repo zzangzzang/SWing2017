@@ -125,26 +125,40 @@
                 android:layout_height="0dp">
                 <TextView
                     android:id="@+id/textleft"
-                    android:layout_marginRight="14dp"
+                    android:layout_marginRight="15dp"
                     android:layout_gravity="center"
                     android:textSize="40dp"
                     android:textColor="#A9B7B7"
                     android:text="50"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <ImageView
+                <LinearLayout
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/foot_left"
-                    android:layout_width="40dp"
-                    android:layout_height="800dp" />
-                <ImageView
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/foot_right"
+                    android:gravity="center"
+                    android:orientation="vertical"
                     android:layout_width="80dp"
-                    android:layout_height="160dp" />
+                    android:layout_height="160dp">
+                    <ImageView
+                        android:id="@+id/imgleft"
+                        android:src="@drawable/foot_left"
+                        android:layout_width="40dp"
+                        android:layout_height="80dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="80dp"
+                    android:layout_height="160dp">
+                    <ImageView
+                        android:id="@+id/imgright"
+                        android:src="@drawable/foot_right"
+                        android:layout_width="40dp"
+                        android:layout_height="80dp" />
+                </LinearLayout>
                 <TextView
                     android:id="@+id/textright"
-                    android:layout_marginLeft="14dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_gravity="center"
                     android:textSize="40dp"
                     android:textColor="#A9B7B7"
