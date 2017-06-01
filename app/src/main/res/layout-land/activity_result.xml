@@ -25,13 +25,14 @@
 
         <LinearLayout
             android:layout_width="0dp"
+
             android:layout_weight="1"
             android:orientation="vertical"
             android:layout_height="match_parent">
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1.37">
+                android:layout_weight="3">
                 <VideoView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -46,90 +47,10 @@
                     android:textColor="@color/white"
                     />
             </FrameLayout>
-
-            <LinearLayout
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp">
-                <TextView
-                    android:id="@+id/textleft"
-                    android:layout_marginRight="14dp"
-                    android:layout_gravity="center"
-                    android:textSize="40dp"
-                    android:textColor="#A9B7B7"
-                    android:text="50"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <ImageView
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/foot_left"
-                    android:layout_width="70dp"
-                    android:layout_height="match_parent" />
-                <ImageView
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/foot_right"
-                    android:layout_width="70dp"
-                    android:layout_height="match_parent" />
-                <TextView
-                    android:id="@+id/textright"
-                    android:layout_marginLeft="14dp"
-                    android:layout_gravity="center"
-                    android:textSize="40dp"
-                    android:textColor="#A9B7B7"
-                    android:text="50"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="3"
-                    android:layout_height="match_parent"
-                    android:text="프로선수와"
-                    android:textColor="#ffffff"
-                    android:paddingLeft="20dp"
-                    android:gravity="center"/>
-
-                <TextView
-                    android:id="@+id/synctext"
-                    android:layout_width="0dp"
-                    android:layout_weight="2.5"
-                    android:text="75%"
-                    android:textColor="#ffffff"
-                    android:textSize="40sp"
-                    android:gravity="center"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/circle"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="3"
-                    android:layout_height="match_parent"
-                    android:text="일치합니다"
-                    android:textColor="#ffffff"
-                    android:paddingRight="20dp"
-                    android:gravity="center"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3"
                 android:background="#22FFFFFF"
                 android:orientation="vertical"
                 android:layout_marginTop="10dp"
@@ -153,10 +74,104 @@
 
             </LinearLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:text="프로선수와"
+                    android:textColor="#ffffff"
+                    android:paddingLeft="20dp"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/synctext"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:text="75%"
+                    android:textColor="#ffffff"
+                    android:textSize="40sp"
+                    android:gravity="center"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/circle"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:text="일치합니다"
+                    android:textColor="#ffffff"
+                    android:paddingRight="20dp"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <TextView
+                    android:id="@+id/textleft"
+                    android:layout_marginRight="15dp"
+                    android:layout_gravity="center"
+                    android:textSize="40dp"
+                    android:textColor="#A9B7B7"
+                    android:text="50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="80dp"
+                    android:layout_height="160dp">
+                    <ImageView
+                        android:id="@+id/imgleft"
+                        android:src="@drawable/foot_left"
+                        android:layout_width="40dp"
+                        android:layout_height="80dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="80dp"
+                    android:layout_height="160dp">
+                    <ImageView
+                        android:id="@+id/imgright"
+                        android:src="@drawable/foot_right"
+                        android:layout_width="40dp"
+                        android:layout_height="80dp" />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/textright"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center"
+                    android:textSize="40dp"
+                    android:textColor="#A9B7B7"
+                    android:text="50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
                 android:background="#22FFFFFF"
                 android:orientation="vertical"
                 android:layout_marginLeft="15dp">
