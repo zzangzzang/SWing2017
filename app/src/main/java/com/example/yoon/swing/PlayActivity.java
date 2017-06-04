@@ -29,6 +29,7 @@ public class PlayActivity extends AppCompatActivity {
     String ymd, hms, CAPTURE_TITLE;
     int myClub;
     int FLAG = 0; // 일반연습
+    Calendar calNow;
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -57,18 +58,19 @@ public class PlayActivity extends AppCompatActivity {
                     1234);
         }
 
+        calNow = Calendar.getInstance();
         Toast.makeText(this, "play!!",Toast.LENGTH_SHORT).show();
         String strDateFormat = "yyyyMMdd";
         SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
         String strDateFormat2 = "HHmmss";
         SimpleDateFormat sdf2 = new SimpleDateFormat(strDateFormat2);
-        ymd = sdf.format(cal.getTime());
-        hms = sdf2.format(cal.getTime());
+        ymd = sdf.format(calNow.getTime());
+        hms = sdf2.format(calNow.getTime());
         CAPTURE_TITLE = "T" +  ymd + hms + ".3gp";
         Toast.makeText(this, CAPTURE_TITLE, Toast.LENGTH_SHORT).show();
     }
     public void SettingBackground(){
-        Calendar calNow = Calendar.getInstance();
+        calNow = Calendar.getInstance();
         String strDateFormat = "HH";
         SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
         String hour_string = sdf.format(calNow.getTime());
