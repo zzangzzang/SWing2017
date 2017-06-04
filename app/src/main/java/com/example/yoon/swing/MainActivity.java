@@ -54,10 +54,10 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     }
 
     public void SettingBackground() {
-        cal = Calendar.getInstance();
+        Calendar calNow = Calendar.getInstance();
         String strDateFormat = "HH";
         SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
-        String hour_string = sdf.format(cal.getTime());
+        String hour_string = sdf.format(calNow.getTime());
         int hour = Integer.parseInt(hour_string);
         Log.d("HOUR : ", hour_string);
         if (hour >= 6 && hour < 14 && ThemaType == 0 || ThemaType == 1) {
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     public void readDataFile() {
         Scanner scan = null;
 
-        dbHandler.table1_addData("T20170614163502", "0", "20170614", "163502", "1", 0);
+        dbHandler.table1_addData("T20170614163502", "0", "20170614", "163502", "1", 91);
         String TRAINING_SEQ = "";
         String DETAIL_SEQ = "";
         String REG_TIME = "";
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         }
         scan.close();
 
-        dbHandler.table1_addData("T20170614163037", "0", "20170614", "163037", "1", 0);
+        dbHandler.table1_addData("T20170614163037", "0", "20170614", "163037", "1", 86);
         TRAINING_SEQ = "";
         DETAIL_SEQ = "";
         REG_TIME = "";
@@ -170,8 +170,44 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         }
         scan.close();
 
+        dbHandler.table1_addData("T20170616092112", "0", "20170616", "092112", "1", 87);
+        TRAINING_SEQ = "";
+        DETAIL_SEQ = "";
+        REG_TIME = "";
+        RIGHT_WEIGHT = "";
+        LEFT_WEIGHT = "";
+        scan = new Scanner(
+                getResources().openRawResource(R.raw.userdetail3));
+        while (scan.hasNextLine()) {
+            TRAINING_SEQ = scan.nextLine();
+            DETAIL_SEQ = scan.nextLine();
+            REG_TIME = scan.nextLine();
+            RIGHT_WEIGHT = scan.nextLine();
+            LEFT_WEIGHT = scan.nextLine();
+            dbHandler.table2_addData(TRAINING_SEQ, DETAIL_SEQ, REG_TIME, RIGHT_WEIGHT, LEFT_WEIGHT);
+        }
+        scan.close();
+
+        dbHandler.table1_addData("T20170616092220", "0", "20170616", "092220", "1", 84);
+        TRAINING_SEQ = "";
+        DETAIL_SEQ = "";
+        REG_TIME = "";
+        RIGHT_WEIGHT = "";
+        LEFT_WEIGHT = "";
+        scan = new Scanner(
+                getResources().openRawResource(R.raw.userdetail4));
+        while (scan.hasNextLine()) {
+            TRAINING_SEQ = scan.nextLine();
+            DETAIL_SEQ = scan.nextLine();
+            REG_TIME = scan.nextLine();
+            RIGHT_WEIGHT = scan.nextLine();
+            LEFT_WEIGHT = scan.nextLine();
+            dbHandler.table2_addData(TRAINING_SEQ, DETAIL_SEQ, REG_TIME, RIGHT_WEIGHT, LEFT_WEIGHT);
+        }
+        scan.close();
+
         // 반복데이터
-        dbHandler.table1_addData("T20170613163502", "1", "20170613", "163502", "1", 0);
+        dbHandler.table1_addData("T20170613163502", "1", "20170613", "163502", "1", 80);
         TRAINING_SEQ = "";
         DETAIL_SEQ = "";
         REG_TIME = "";
@@ -204,8 +240,6 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
             dbHandler.table5_addData(PRO_ID, DETAIL_SEQ, RIGHT_WEIGHT, LEFT_WEIGHT);
         }
         scan.close();
-
-
     }
 
     public void settingClick(View view) {
