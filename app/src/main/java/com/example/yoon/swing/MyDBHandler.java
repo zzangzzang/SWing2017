@@ -194,7 +194,6 @@ public class MyDBHandler extends SQLiteOpenHelper {
             newVersion) {
         //db.execSQL("drop table if exists "+DATABASE_TABLE);
         onCreate(db);
-
     }
 
 }
