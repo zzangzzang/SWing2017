@@ -54,10 +54,10 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     }
 
     public void SettingBackground() {
-        cal = Calendar.getInstance();
+        Calendar calNow = Calendar.getInstance();
         String strDateFormat = "HH";
         SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
-        String hour_string = sdf.format(cal.getTime());
+        String hour_string = sdf.format(calNow.getTime());
         int hour = Integer.parseInt(hour_string);
         Log.d("HOUR : ", hour_string);
         if (hour >= 6 && hour < 14 && ThemaType == 0 || ThemaType == 1) {

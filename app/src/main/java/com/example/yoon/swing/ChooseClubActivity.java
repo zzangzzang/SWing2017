@@ -84,10 +84,10 @@ public class ChooseClubActivity extends AppCompatActivity {
     }
 
     public void SettingBackground(){
-        cal = Calendar.getInstance();
+        Calendar calNow = Calendar.getInstance();
         String strDateFormat = "HH";
         SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
-        String hour_string = sdf.format(cal.getTime());
+        String hour_string = sdf.format(calNow.getTime());
         int hour = Integer.parseInt(hour_string);
         Log.d("HOUR : ", hour_string);
         if(hour >= 6 && hour < 14 && MainActivity.ThemaType == 0 || MainActivity.ThemaType == 1){
