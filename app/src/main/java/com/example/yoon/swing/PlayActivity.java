@@ -20,6 +20,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Scanner;
 
 import static com.example.yoon.swing.R.id.tv1;
 import static com.example.yoon.swing.RecordActivity.cal;
@@ -100,9 +101,30 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     public void txtClick(View view) {
+        int i = 0;
+        Scanner scan = null;
         MyDBHandler myDBHandler = new MyDBHandler(this, null, null, 1);
         String title = "T" +  ymd + hms;
-        myDBHandler.table1_addData(title, Integer.toString(FLAG), ymd, hms, Integer.toString(myClub), 0); // 헤더
+        myDBHandler.table1_addData(title, Integer.toString(FLAG), ymd, hms, Integer.toString(myClub), 84); // 헤더
+        String TRAINING_SEQ = "";
+        String DETAIL_SEQ = "";
+        String REG_TIME = "";
+        String RIGHT_WEIGHT = "";
+        String LEFT_WEIGHT = "";
+        scan = new Scanner(
+                getResources().openRawResource(R.raw.userdetail5));
+        while (scan.hasNextLine()) {
+            DETAIL_SEQ = scan.nextLine();
+            RIGHT_WEIGHT = scan.nextLine();
+            LEFT_WEIGHT = scan.nextLine();
+            TRAINING_SEQ = title;
+            int reg_time = (Integer.parseInt(hms)* 1000) + (i * 100);
+            REG_TIME = String.valueOf(reg_time);
+            myDBHandler.table2_addData(TRAINING_SEQ, DETAIL_SEQ, REG_TIME, RIGHT_WEIGHT, LEFT_WEIGHT);
+            i++;
+        }
+        scan.close();
+
         // 상세 넣어야함
         myDBHandler.table3_addData(title, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString(), CAPTURE_TITLE); // 동영상
         Intent intent = new Intent(this,ResultActivity.class);
