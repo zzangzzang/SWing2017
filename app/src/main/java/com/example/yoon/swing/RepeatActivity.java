@@ -25,9 +25,10 @@ import static com.example.yoon.swing.RecordActivity.cal;
 
 public class RepeatActivity extends AppCompatActivity {
     LinearLayout linearLayout;
-    String ymd, hms, CAPTURE_TITLE;
+    String ymd = "", hms = "", CAPTURE_TITLE = "";
     int myClub;
     int FLAG = 1; // 반복연습
+    Calendar calNow;
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -56,20 +57,21 @@ public class RepeatActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.CAMERA},
                     1234);
         }
+        calNow = Calendar.getInstance();
         Toast.makeText(this, "play!!",Toast.LENGTH_SHORT).show();
         String strDateFormat = "yyyyMMdd";
         SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
         String strDateFormat2 = "HHmmss";
         SimpleDateFormat sdf2 = new SimpleDateFormat(strDateFormat2);
-        ymd = sdf.format(cal.getTime());
-        hms = sdf2.format(cal.getTime());
+        ymd = sdf.format(calNow.getTime());
+        hms = sdf2.format(calNow.getTime());
         CAPTURE_TITLE = "T" +  ymd + hms + ".3gp";
         Toast.makeText(this, CAPTURE_TITLE, Toast.LENGTH_SHORT).show();
         //Log.d("년월일ㅇ시분초 : ", ymd);
     }
 
     public void SettingBackground(){
-        Calendar calNow = Calendar.getInstance();
+        calNow = Calendar.getInstance();
         String strDateFormat = "HH";
         SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
         String hour_string = sdf.format(calNow.getTime());
