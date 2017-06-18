@@ -7,21 +7,19 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import static com.example.yoon.swing.RecordActivity.cal;
 
 public class RepeatActivity extends AppCompatActivity {
     LinearLayout linearLayout;
@@ -34,6 +32,8 @@ public class RepeatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_repeat);
         linearLayout = (LinearLayout)findViewById(R.id.activity_play);
         SettingBackground();
@@ -58,7 +58,6 @@ public class RepeatActivity extends AppCompatActivity {
                     1234);
         }
         calNow = Calendar.getInstance();
-        Toast.makeText(this, "play!!",Toast.LENGTH_SHORT).show();
         String strDateFormat = "yyyyMMdd";
         SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
         String strDateFormat2 = "HHmmss";
@@ -66,7 +65,6 @@ public class RepeatActivity extends AppCompatActivity {
         ymd = sdf.format(calNow.getTime());
         hms = sdf2.format(calNow.getTime());
         CAPTURE_TITLE = "T" +  ymd + hms + ".3gp";
-        Toast.makeText(this, CAPTURE_TITLE, Toast.LENGTH_SHORT).show();
         //Log.d("년월일ㅇ시분초 : ", ymd);
     }
 

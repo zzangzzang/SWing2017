@@ -9,7 +9,7 @@
     <application
         android:name=".SwingApplication"
         android:allowBackup="true"
-        android:icon="@drawable/icon3"
+        android:icon="@drawable/icon"
         android:label="SWing"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">

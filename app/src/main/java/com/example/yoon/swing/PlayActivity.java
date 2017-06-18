@@ -13,9 +13,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -23,7 +23,6 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 import static com.example.yoon.swing.R.id.tv1;
-import static com.example.yoon.swing.RecordActivity.cal;
 
 public class PlayActivity extends AppCompatActivity {
     LinearLayout linearLayout;
@@ -36,6 +35,8 @@ public class PlayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_play);
         linearLayout = (LinearLayout)findViewById(R.id.activity_play);
         SettingBackground();
@@ -60,7 +61,6 @@ public class PlayActivity extends AppCompatActivity {
         }
 
         calNow = Calendar.getInstance();
-        Toast.makeText(this, "play!!",Toast.LENGTH_SHORT).show();
         String strDateFormat = "yyyyMMdd";
         SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
         String strDateFormat2 = "HHmmss";
@@ -68,7 +68,6 @@ public class PlayActivity extends AppCompatActivity {
         ymd = sdf.format(calNow.getTime());
         hms = sdf2.format(calNow.getTime());
         CAPTURE_TITLE = "T" +  ymd + hms + ".3gp";
-        Toast.makeText(this, CAPTURE_TITLE, Toast.LENGTH_SHORT).show();
     }
     public void SettingBackground(){
         calNow = Calendar.getInstance();

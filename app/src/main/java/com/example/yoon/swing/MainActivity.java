@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         typeface = Typeface.createFromAsset(getAssets(), "nanumpen.ttf");
 
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         } else if (hour >= 14 && hour < 18 && ThemaType == 0 || ThemaType == 2) {
             linearLayout.setBackgroundResource(R.drawable.back2);
             textView.setTextColor(Color.parseColor("#ffffff"));
-        } else if ( (hour >= 18 || hour < 6 && ThemaType == 0) || ThemaType == 3) {
+        } else if ((hour >= 18 || hour < 6 && ThemaType == 0) || ThemaType == 3) {
             linearLayout.setBackgroundResource(R.drawable.back3);
             textView.setTextColor(Color.parseColor("#ffffff"));
         }
@@ -284,16 +287,32 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        if (pressedTime == 0) {
-            Toast.makeText(this, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
-            pressedTime = System.currentTimeMillis();
-        } else {
-            int seconds = (int) (System.currentTimeMillis() - pressedTime);
-            if (seconds > 2000) {
-                pressedTime = 0;
-            } else {
-                finish();
-            }
-        }
+//        if (pressedTime == 0) {
+//            Toast.makeText(this, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+//            pressedTime = System.currentTimeMillis();
+//        } else {
+//            int seconds = (int) (System.currentTimeMillis() - pressedTime);
+//            if (seconds > 2000) {
+//                pressedTime = 0;
+//            } else {
+//                finish();
+//            }
+//        }
+
+
+        new AlertDialog.Builder(this)
+//                .setTitle("프로그램 종료")
+                .setMessage("SWing을 종료 하시겠습니까?")
+                .setPositiveButton("예", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                    }
+                })
+                .setNegativeButton("아니오", null)
+                .show();
+
+
     }
 }
